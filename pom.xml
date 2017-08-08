@@ -36,6 +36,7 @@
 		<version.jsf-mojarra>2.2.14</version.jsf-mojarra>
 		<version.primefaces>6.1</version.primefaces>
 		<version.primefaces-ext>6.0.0</version.primefaces-ext>
+		<version.springwebflow>2.4.5.RELEASE</version.springwebflow>
 
 		<version.erodriguezg-java-utils>8.2.0</version.erodriguezg-java-utils>
 		<version.erodriguezg-jsf-utils>2.0.2</version.erodriguezg-jsf-utils>
@@ -119,6 +120,7 @@
 		</dependency>
 
 		<!-- JSF PRIMEFACES -->
+
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
@@ -134,6 +136,29 @@
 					<artifactId>org.primefaces</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<!-- SPRING WEBFLOW -->
+
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${version.springwebflow}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-binding</artifactId>
+			<version>${version.springwebflow}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-js</artifactId>
+			<version>${version.springwebflow}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>${version.springwebflow}</version>
 		</dependency>
 
 		<!-- commons -->
