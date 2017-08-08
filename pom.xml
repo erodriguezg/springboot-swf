@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.github.erodriguezg</groupId>
+	<artifactId>springboot-swf</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>springboot-swf</name>
+	<description>Example project for springboot with spring web flow - jsf 2- primefaces 6</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.3.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<plugin.flyway.version>4.2.0</plugin.flyway.version>
+		<plugin.flyway.url>jdbc:postgresql://localhost:5432/deptomanager</plugin.flyway.url>
+		<plugin.flyway.user>postgres</plugin.flyway.user>
+		<plugin.flyway.password>postgres</plugin.flyway.password>
+
+		<version.java>1.8</version.java>
+		<version.postgres>42.0.0</version.postgres>
+		<version.hikari>2.6.1</version.hikari>
+		<version.commons-beanutils>1.9.3</version.commons-beanutils>
+
+		<version.jsf-api>2.2</version.jsf-api>
+		<version.jsf-mojarra>2.2.14</version.jsf-mojarra>
+		<version.primefaces>6.1</version.primefaces>
+		<version.primefaces-ext>6.0.0</version.primefaces-ext>
+
+		<version.erodriguezg-java-utils>8.2.0</version.erodriguezg-java-utils>
+		<version.erodriguezg-jsf-utils>2.0.2</version.erodriguezg-jsf-utils>
+		<version.erodriguezg-beanvalidation-utils>1.0.0</version.erodriguezg-beanvalidation-utils>
+
+		<version.junit>4.12</version.junit>
+		<version.assertj>2.2.0</version.assertj>
+		<version.mockito>2.8.47</version.mockito>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${version.postgres}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${version.hikari}</version>
+		</dependency>
+
+		<!-- erodriguezg libs -->
+
+		<dependency>
+			<groupId>com.github.erodriguezg</groupId>
+			<artifactId>jsf-utils</artifactId>
+			<version>${version.erodriguezg-jsf-utils}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.erodriguezg</groupId>
+			<artifactId>beanvalidation-utils</artifactId>
+			<version>${version.erodriguezg-beanvalidation-utils}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.erodriguezg</groupId>
+			<artifactId>java-utils</artifactId>
+			<version>${version.erodriguezg-java-utils}</version>
+		</dependency>
+
+		<!-- JSF -->
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>${version.jsf-api}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>${version.jsf-mojarra}</version>
+		</dependency>
+
+		<!-- JSF PRIMEFACES -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${version.primefaces}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>${version.primefaces-ext}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.primefaces</groupId>
+					<artifactId>org.primefaces</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- commons -->
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${version.commons-beanutils}</version>
+		</dependency>
+
+		<!-- test -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${plugin.flyway.version}</version>
+				<configuration>
+					<url>${plugin.flyway.url}</url>
+					<user>${plugin.flyway.user}</user>
+					<password>${plugin.flyway.password}</password>
+					<locations>
+						<location>filesystem://${basedir}/sql/</location>
+					</locations>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>${version.postgres}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+</project>
