@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "cl.github.erodriguezg.springbootswf")
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class,
 		HibernateJpaAutoConfiguration.class})
