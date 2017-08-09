@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.HashSet;
@@ -14,15 +15,50 @@ import java.util.Set;
 @Configuration
 public class JsfConfig {
 
+/*
     @Bean
-    public JsfContextInitializer jsfContextInitializer() {
-        return new JsfContextInitializer ();
+    public ServletRegistrationBean servletRegistrationBean() {
+        FacesServlet servlet = new FacesServlet();
+        ServletRegistrationBean servletRegistrationBean
+                = new ServletRegistrationBean(servlet, "*.xhtml");
+        return servletRegistrationBean;
     }
 
-    public static class JsfContextInitializer extends ServletRegistrationBean  {
+    @Configuration
+    static class Initializer implements ServletContextInitializer {
 
         @Override
-        public void onStartup ( ServletContext servletContext ) throws ServletException {
+        public void onStartup(ServletContext servletContext) throws ServletException {
+            servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX",
+                    ".xhtml");
+            servletContext.setInitParameter(
+                    "javax.faces.PARTIAL_STATE_SAVING_METHOD", "true");
+            servletContext.setInitParameter(
+                    "javax.faces.STATE_SAVING_METHOD", "server");
+            servletContext.setInitParameter(
+                    "com.sun.faces.forceLoadConfiguration", "true");
+            servletContext.setInitParameter("javax.faces.PROJECT_STAGE",
+                    "Development");
+            servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
+            servletContext.setInitParameter(
+                    "javax.faces.FACELETS_REFRESH_PERIOD", "1");
+            servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
+           // servletContext.setInitParameter("primefaces.THEME", "bootstrap");
+        }
+    }
+*/
+
+
+
+    @Bean
+    public JsfContextInitializer jsfContextInitializer() {
+        return new JsfContextInitializer();
+    }
+
+    public static class JsfContextInitializer extends ServletRegistrationBean {
+
+        @Override
+        public void onStartup(ServletContext servletContext) throws ServletException {
 
             servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX",
                     ".xhtml");
@@ -38,14 +74,15 @@ public class JsfConfig {
             servletContext.setInitParameter(
                     "javax.faces.FACELETS_REFRESH_PERIOD", "1");
             servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
-            servletContext.setInitParameter ( "primefaces.THEME", "bootstrap" );
+            //servletContext.setInitParameter("primefaces.THEME", "bootstrap");
 
-            FacesInitializer facesInitializer = new FacesInitializer ();
+            FacesInitializer facesInitializer = new FacesInitializer();
 
-            Set<Class<?>> clazz = new HashSet<> ();
+            Set<Class<?>> clazz = new HashSet<>();
             clazz.add(JsfConfig.class);
             facesInitializer.onStartup(clazz, servletContext);
 
         }
     }
+
 }
