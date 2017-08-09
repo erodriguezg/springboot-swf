@@ -15,31 +15,15 @@ import java.util.Set;
 public class JsfConfig {
 
     @Bean
-    public ServletRegistrationBean facesServletRegistration() {
-        ServletRegistrationBean servletRegistrationBean = new JsfServletRegistrationBean();
-        return servletRegistrationBean;
+    public JsfContextInitializer jsfContextInitializer() {
+        return new JsfContextInitializer ();
     }
 
-    public class JsfServletRegistrationBean extends ServletRegistrationBean {
-        public JsfServletRegistrationBean() {
-            super();
-        }
+    public static class JsfContextInitializer extends ServletRegistrationBean  {
 
         @Override
-        public void onStartup(ServletContext servletContext)
-                throws ServletException {
-            FacesInitializer facesInitializer = new FacesInitializer();
-            Set<Class<?>> clazz = new HashSet<Class<?>>();
-            clazz.add(JsfConfig.class);
-            facesInitializer.onStartup(clazz, servletContext);
-        }
-    }
+        public void onStartup ( ServletContext servletContext ) throws ServletException {
 
-    @Configuration
-    static class ConfigureJSFContextParameters implements ServletContextInitializer {
-        @Override
-        public void onStartup(ServletContext servletContext)
-                throws ServletException {
             servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX",
                     ".xhtml");
             servletContext.setInitParameter(
@@ -54,6 +38,14 @@ public class JsfConfig {
             servletContext.setInitParameter(
                     "javax.faces.FACELETS_REFRESH_PERIOD", "1");
             servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
+            servletContext.setInitParameter ( "primefaces.THEME", "bootstrap" );
+
+            FacesInitializer facesInitializer = new FacesInitializer ();
+
+            Set<Class<?>> clazz = new HashSet<> ();
+            clazz.add(JsfConfig.class);
+            facesInitializer.onStartup(clazz, servletContext);
+
         }
     }
 }

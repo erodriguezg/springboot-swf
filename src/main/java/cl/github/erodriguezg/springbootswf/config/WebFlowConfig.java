@@ -12,7 +12,6 @@ import org.springframework.webflow.security.SecurityFlowExecutionListener;
 @Configuration
 public class WebFlowConfig extends AbstractFacesFlowConfiguration {
 
-
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder()

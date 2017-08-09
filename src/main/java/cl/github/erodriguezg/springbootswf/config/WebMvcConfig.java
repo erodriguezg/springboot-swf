@@ -71,12 +71,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     /*
     Listeners
-     */
+
 
     @Bean
     public RequestContextListener requestContextListener() {
         return new RequestContextListener();
     }
+*/
 
     /*
     Utilitarios

@@ -27,30 +27,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/app/gestionar_usuarios/**").hasAuthority("PERFIL_SUPER_ADMINISTRADOR")
-                .anyRequest().permitAll()
+                .csrf ().disable ()
+                .formLogin ()
+                    .loginPage ( "/ui/login" ).permitAll ()
+                    .usernameParameter ( "username" )
+                    .passwordParameter ( "password" )
+                    .loginProcessingUrl ( "/j_spring_security_check" )
+                    .defaultSuccessUrl ( "/ui/index", true )
+                    .failureUrl ( "/ui/login?error=true" )
                 .and()
-                .logout()
-                .logoutSuccessUrl("/inicio.xhtml")
-                .logoutUrl("/logout")
-                .invalidateHttpSession(true)
+                    .logout()
+                        .logoutSuccessUrl("/ui/index")
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login.xhtml"))
-                .accessDeniedPage("/inicio.xhtml")
+                    .authorizeRequests()
+                        .antMatchers("/ui/gestionar_usuarios/**").hasAuthority("PERFIL_SUPER_ADMINISTRADOR")
+                    .anyRequest().permitAll()
                 .and()
-                .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                    .exceptionHandling()
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/ui/login"))
+                        .accessDeniedPage("/ui/index")
+                .and()
+                    .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 
     private Filter customUsernamePasswordAuthenticationFilter() {
         UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(customAuthenticationManager);
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/inicio.xhtml"));
-        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login.xhtml"));
+        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/ui/index"));
+        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/ui/login"));
         return filter;
     }
 
