@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>SpringBoot + JSF Archetype 2017</title>
+        <h:outputScript name="js/nanoscroller.js" library="omega-layout" />
+        <h:outputScript name="js/layout.js" library="omega-layout" />
+        <h:outputScript name="js/primefaces.spanish.locale.js" library="app" />
+        <h:outputScript name="js/jquery.Rut.js" library="app" />
+        <h:outputScript name="js/general.js" library="app" />
+        <ui:insert name="head"/>
+    </h:head>
+
+    <h:body styleClass="main-body">
+        <div class="wrapper">
+            <ui:include src="topbar.xhtml" />
+
+            <ui:include src="sidebar.xhtml" />
+
+            <div class="main">
+                <ui:insert name="content"/>
+            </div>
+
+            <ui:include src="footer.xhtml" />
+        </div>
+        
+        <h:outputStylesheet name="css/animate.css" library="omega-layout" />
+        <h:outputStylesheet name="css/nanoscroller.css" library="omega-layout" />
+        <h:outputStylesheet name="css/layout.css" library="omega-layout" />
+
+        <ui:include src="/WEB-INF/templates/includes/mensajes_globales.xhtml" />
+        <ui:include src="/WEB-INF/templates/includes/idleMonitor.xhtml" />
+        <ui:include src="/WEB-INF/templates/includes/funciones_javascript_globales.xhtml" />
+        <p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"/>
+    </h:body>
+
+</html>

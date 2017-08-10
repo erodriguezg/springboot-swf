@@ -1,0 +1,165 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">Showcase</ui:define>
+
+    <ui:define name="head">
+        <style type="text/css">
+            .grid-pad .ui-panelgrid-content .ui-panelgrid-cell.ui-grid-col-12 {
+                padding-bottom: 10px;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <div class="card">
+                        <h1>Modales y Mensajes Globales</h1>
+                        <p:commandButton value="Modal" type="button" onclick="PF('wvDialog').show()" style="margin-bottom:10px;" />
+
+                        <p:commandButton value="Confirm" type="button" style="margin-bottom:10px;" >
+                            <p:confirm header="Información Showcase" 
+                                       message="Los siguiente cambios no se podran deshacer.¿Esta seguro?" 
+                                       icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Error Global" style="margin-bottom:10px;"
+                                         actionListener="#{showcaseBean.lanzarMensajeErrorGlobal()}"
+                                         process="@this" update="@this" />
+
+                        <p:commandButton value="Info Global" style="margin-bottom:10px;"
+                                         actionListener="#{showcaseBean.lanzarMensajeInfoGlobal()}"
+                                         process="@this" update="@this" />
+
+                        <p:commandButton value="Procesando (5 seg)" style="margin-bottom:10px;"
+                                         actionListener="#{showcaseBean.procesando()}"
+                                         process="@this" update="@this" />
+                    </div>
+                    <div class="card">
+                        <h1>DataTable</h1>
+
+                        <p:dataTable id="tablaLogs" 
+                                     reflow="true"
+                                     var="log" value="#{showcaseBean.lista1}" 
+                                     paginator="true" rows="15" emptyMessage="No se han encontrado Logs"
+                                     paginatorAlwaysVisible="false" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">  
+
+                            <p:column headerText="Image Icon" sortBy="#{log}">  
+                                <h:outputText value="#{log}" />                                
+                            </p:column>  
+
+                            <p:column headerText="Resultados" sortBy="#{log}" >  
+                                <h:outputText value="#{log}" />  
+                            </p:column>   
+
+                            <p:column headerText="Info" sortBy="#{log}" >  
+                                <h:outputText value="Info" />  
+                            </p:column>
+
+                        </p:dataTable> 
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <div class="card">
+                        <h1>Componentes Formulario</h1>
+                        <p:panelGrid id="gridcomponentes" columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
+                            <p:outputLabel for="pickList1" value="PickList"/>
+                            <h:panelGroup>
+                                <p:pickList 
+                                    id="pickList1" 
+                                    required="true"
+                                    value="#{showcaseBean.cities}" 
+                                    var="city"   
+                                    itemLabel="#{city}" 
+                                    itemValue="#{city}"
+                                    responsive="true" >
+
+                                    <f:facet name="sourceCaption">Origen</f:facet>
+                                    <f:facet name="targetCaption">Destino</f:facet>
+
+                                </p:pickList>
+                                <p:message for="pickList1" display="text" />
+                            </h:panelGroup>
+
+                            <p:outputLabel for="oneradio" value="One radio"  />
+                            <h:panelGroup>
+                                <p:selectOneRadio id="oneradio" required="true" >
+                                    <f:selectItem itemValue="#{1}" itemLabel="Uno" />
+                                    <f:selectItem itemValue="#{2}" itemLabel="Dos" />
+                                    <f:selectItem itemValue="#{3}" itemLabel="Tres" />
+                                    <f:selectItem itemValue="#{4}" itemLabel="Cuatro" />
+                                </p:selectOneRadio>
+                                <p:message for="oneradio" display="text" />
+                            </h:panelGroup>
+
+                            <p:outputLabel for="manycheck" value="Many Check"/>
+                            <h:panelGroup>
+                                <p:selectManyCheckbox id="manycheck" required="true"  >
+                                    <f:selectItem itemValue="#{1}" itemLabel="Uno" />
+                                    <f:selectItem itemValue="#{2}" itemLabel="Dos" />
+                                    <f:selectItem itemValue="#{3}" itemLabel="Tres" />
+                                    <f:selectItem itemValue="#{4}" itemLabel="Cuatro" />
+                                </p:selectManyCheckbox>
+                                <p:message for="manycheck" display="text" />
+                            </h:panelGroup>
+
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Guardar"
+                                                 class="zeke-btn-azul zeke-size-normal"
+                                                 process="gridcomponentes" update="gridcomponentes" />
+                            </f:facet>
+
+                        </p:panelGrid>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-g-nopad">
+                    <div class="ui-g-12 ui-lg-6" style="padding-top:0">
+                    </div>
+                    <div class="ui-g-12 ui-lg-6" style="padding-top:0">
+
+                    </div>
+                </div>
+            </div>
+
+            <p:dialog id="dialog" 
+                      widgetVar="wvDialog"
+                      modal="true"
+                      onShow="PF('wvDialog').initPosition()"
+                      showEffect="fade"
+                      hideEffect="fade" >
+
+                <f:facet name="header">Hola Mundo</f:facet>
+
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Vestibulum tincidunt est vitae ultrices accumsan. 
+                    Aliquam ornare lacus adipiscing, posuere lectus et, 
+                    fringilla augue.
+                </p>
+
+                <f:facet name="footer">
+
+                    <p:commandButton value="Aceptar"  type="button" icon="fa fa-check" />
+
+                    <p:commandButton value="Cancelar"  type="button" onclick="PF('wvDialog').hide()" icon="fa fa-close" />
+
+                </f:facet>
+
+            </p:dialog>
+
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>

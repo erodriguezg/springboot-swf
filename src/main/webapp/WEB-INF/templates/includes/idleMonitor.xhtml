@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:idleMonitor timeout="#{(session.maxInactiveInterval-1)*1000}" onidle="PF('dialogIdle').show();" rendered="#{identidad.loggedIn}" />
+    
+    <p:dialog id="idleDialog" widgetVar="dialogIdle" resizable="false" modal="true" closable="false" header="Información" styleClass="info_modal">
+        <div class="response">
+            <p class="mensaje_error">
+                Sesión Expirada
+            </p>
+        </div>
+        <h:form id="formIdle">
+            <p:commandButton id="aceptarIdle" type="button" value="Aceptar" onclick="window.location.href = '#{request.contextPath}/logout';" />
+        </h:form>
+        <br/>
+    </p:dialog>
+
+</ui:composition>

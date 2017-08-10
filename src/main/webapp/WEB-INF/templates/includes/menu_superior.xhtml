@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#{request.contextPath}/inicio.xhtml" ><i class="fa fa-lg fa-home" style="margin-right: 5px;"/>Inicio</a></li>
+                    <ui:fragment rendered="#{identidad.tieneRol('PERFIL_SUPER_ADMINISTRADOR')}">
+                        <li><a href="#{request.contextPath}/app/gestionar_usuarios">Gestionar Usuarios</a></li>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{identidad.loggedIn}">
+                        <li><a href="#{request.contextPath}/showcase.xhtml">Showcase</a></li>
+                    </ui:fragment>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <ui:fragment rendered="#{identidad.loggedIn}">
+                            <a href="#{request.contextPath}/logout"><i class="glyphicon glyphicon-off" style="margin-right: 5px;"/>Cerrar Sesión</a>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{!identidad.loggedIn}">
+                            <a href="#{request.contextPath}/login.xhtml"><i class="glyphicon glyphicon-log-in" style="margin-right: 5px;" />Iniciar Sesión</a>
+                        </ui:fragment>
+                    </li>
+                    <li class="divider"></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</ui:composition>

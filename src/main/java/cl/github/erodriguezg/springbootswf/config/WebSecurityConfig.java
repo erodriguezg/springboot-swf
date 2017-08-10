@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter ( "username" )
                     .passwordParameter ( "password" )
                     .loginProcessingUrl ( "/j_spring_security_check" )
-                    .defaultSuccessUrl ( "/ui/index", true )
+                    .defaultSuccessUrl ( "/ui/inicio", true )
                     .failureUrl ( "/ui/login?error=true" )
                 .and()
                     .logout()
@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter customUsernamePasswordAuthenticationFilter() {
         UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(customAuthenticationManager);
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/ui/index"));
+        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/ui/inicio"));
         filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/ui/login"));
         return filter;
     }

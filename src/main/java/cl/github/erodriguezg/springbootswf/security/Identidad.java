@@ -7,14 +7,8 @@ public interface Identidad {
 
     Long getIdPersona();
 
-    String getNombres();
+    boolean isLoggedIn();
 
-    String getApellidos();
-
-    Integer getIdPerfil();
-
-    String getNombrePerfil();
-
-    void setNombrePerfil(String nombrePerfil);
+    String getNombrePersona();
 
 }

@@ -18,4 +18,5 @@ public class MessagesBean {
         FacesContext fc = jsfUtils.getFacesContextCurrentInstance();
         return (fc.getMessages(null) != null) && (fc.getMessages(null).hasNext());
     }
+
 }

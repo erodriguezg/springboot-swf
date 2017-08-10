@@ -1,23 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:p="http://primefaces.org/ui">
-<f:view>
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>JSF and Spring Web Flow Workshop</title>
-	</h:head>
-<h:body>
-	<h:form>
-        <p:tieredMenu>
-            <p:menuitem id="idMenuItemDashboard" value="Main" action="main" immediate="true" ajax="false" />
-	    </p:tieredMenu>
-        <h:outputLink value="main">
-            <h:outputText value="Main"/>
-        </h:outputLink>
-    </h:form>
-    <h:messages/>
-</h:body>
-</f:view>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">Inicio</ui:define>
+
+    <ui:define name="content">
+
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-7">
+                <div class="card">
+                    <h1>Plantilla Archetype JSF+SPRING+JPA/HIBERNATE</h1>
+
+
+                    <h:panelGroup rendered="#{identidad.loggedIn}">
+                        <p>Bienvenido(a), #{identidad.nombrePersona}</p>
+                    </h:panelGroup>
+                    <p>
+                        Esta plantilla contiene:
+                    </p>
+                    <ul>
+                        <li>Modelo de Usuario - Perfil</li>
+                        <li>Modulo Gestion de Usuarios</li>
+                        <li>Proceso de login - logout</li>
+                        <li>Diseño responsivo Primefaces Omega 2016</li>
+                    </ul>
+
+                    <p>
+                        Detalle tecnologías
+                    </p>
+                    <ul>
+                        <li>java version: <b>1.7</b></li>
+                        <li>jsf version: <b>2.2</b></li>
+                        <li>spring framework version: <b>4.3</b></li>
+                        <li>webflow version: <b>2.4</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-lg-5">
+                <div class="card">
+                    <h1>Lorem Ipsum</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

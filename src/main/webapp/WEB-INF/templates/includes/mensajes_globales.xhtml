@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:outputPanel id="mensajesGlobales" autoUpdate="true">
+
+        <ui:fragment rendered="#{messagesBean.existenMensajesGlobales() and facesContext.maximumSeverity == 'ERROR 2'}">
+            <p:dialog widgetVar="facesErrorDialog" visible="true" modal="true" 
+                      closable="false" 
+                      styleClass="ui-dialog.ui-widget.popup_error" 
+                      onShow="this.initPosition()">
+
+                <f:facet name="header">Error</f:facet>
+
+                <p:messages  globalOnly="true"  showIcon="false" />
+
+                <f:facet name="footer">
+                    <h:form>
+                        <div class="botonera">
+                            <p:commandButton 
+                                icon="fa fa-check" type="button" 
+                                value="Aceptar" onclick="PF('facesErrorDialog').hide();" />
+                        </div>
+                    </h:form>
+                </f:facet>
+
+            </p:dialog>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{messagesBean.existenMensajesGlobales() and facesContext.maximumSeverity != 'ERROR 2' }">
+            <p:dialog widgetVar="facesInfoDialog" visible="true" modal="true" 
+                      closable="false" styleClass="ui-dialog.ui-widget.popup_info"
+                      onShow="this.initPosition()">
+
+                <f:facet name="header">Información</f:facet>
+
+                <p:messages  globalOnly="true" showIcon="false" />
+
+                <f:facet name="footer">
+                    <h:form>
+                        <div class="botonera">
+                            <p:commandButton 
+                                icon="fa fa-check" type="button" 
+                                value="Aceptar" onclick="PF('facesInfoDialog').hide();" />
+                        </div>
+                    </h:form>
+                </f:facet>
+
+            </p:dialog>
+        </ui:fragment>
+    </p:outputPanel>
+
+    <h:form id="confirmDialogGeneral">
+        <p:confirmDialog id="confirmDialogGlobal" global="true" showEffect="fade" hideEffect="fade"  >
+            <p:commandButton value="Aceptar" type="button" styleClass="ui-confirmdialog-yes zeke-btn-azul" icon="fa fa-check" />
+            <p:commandButton value="Cancelar"  type="button" styleClass="ui-confirmdialog-no zeke-btn-blanco" icon="fa fa-close" />
+        </p:confirmDialog> 
+    </h:form>
+
+    <p:dialog widgetVar="statusDialog" modal="true" closable="false"
+              header="Procesando..."
+              onShow="this.initPosition()" >
+        <div style="text-align: center; width: 100%;padding-top: 13px;">
+            <p:graphicImage name="images/preloader.gif" library="omega-layout" style="width: 32px;"/>
+        </div>
+    </p:dialog>
+
+
+</ui:composition>

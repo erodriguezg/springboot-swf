@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 
 @Component("identidad")
-@Scope(proxyMode = ScopedProxyMode.INTERFACES)
+@Scope("request")
 public class IdentidadBean implements Identidad {
 
     @Autowired
@@ -41,27 +41,13 @@ public class IdentidadBean implements Identidad {
     }
 
     @Override
-    public String getNombres() {
-        return null;
+    public boolean isLoggedIn() {
+        return obtenerUsuarioDesdeSesion() != null;
     }
 
     @Override
-    public String getApellidos() {
-        return null;
-    }
-
-    @Override
-    public Integer getIdPerfil() {
-        return null;
-    }
-
-    @Override
-    public String getNombrePerfil() {
-        return null;
-    }
-
-    @Override
-    public void setNombrePerfil(String nombrePerfil) {
-
+    public String getNombrePersona() {
+        UsuarioDto usuario = obtenerUsuarioDesdeSesion();
+        return usuario != null ? usuario.getNombres() : null;
     }
 }
