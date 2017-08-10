@@ -5,11 +5,18 @@
               version="2.2">
 
     <application>
+        <message-bundle>JsfMessageResources</message-bundle>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
 
     <lifecycle>
         <phase-listener>org.springframework.web.jsf.DelegatingPhaseListenerMulticaster</phase-listener>
     </lifecycle>
+
+    <!-- empty string converter -->
+    <converter>
+        <converter-for-class>java.lang.String</converter-for-class>
+        <converter-class>com.github.erodriguezg.jsfutils.converters.EmptyToNullConverter</converter-class>
+    </converter>
 
 </faces-config>

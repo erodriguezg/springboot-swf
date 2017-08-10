@@ -1,9 +1,12 @@
 package cl.github.erodriguezg.springbootswf.config;
 
+import cl.github.erodriguezg.springbootswf.scopes.ViewScope;
 import com.github.erodriguezg.javautils.CodecUtils;
 import com.github.erodriguezg.javautils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +19,9 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by eduar on 15/05/2017.
@@ -58,6 +64,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return new SimpleControllerHandlerAdapter();
     }
 
+    /*
+    Servlet Dispatcher MVC
+     */
+
     @Bean
     public DispatcherServlet dispatcherServlet() {
         return new DispatcherServlet();
@@ -68,6 +78,20 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         ServletRegistrationBean registration = new ServletRegistrationBean(
                 dispatcherServlet(), "/ui/*");
         registration.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
+        return registration;
+    }
+
+    /*
+    Filter URL REWRITE
+     */
+
+    @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new org.tuckey.web.filters.urlrewrite.UrlRewriteFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("urlRewriteFilter");
+        registration.setOrder(1);
         return registration;
     }
 

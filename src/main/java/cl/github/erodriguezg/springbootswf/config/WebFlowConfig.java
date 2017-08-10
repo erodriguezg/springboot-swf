@@ -48,6 +48,7 @@ public class WebFlowConfig extends AbstractFacesFlowConfiguration {
         scopeMaps.put("flow", new org.springframework.webflow.scope.FlowScope());
         scopeMaps.put("conversation", new org.springframework.webflow.scope.ConversationScope());
         scopeMaps.put("viewflow", new org.springframework.webflow.scope.ViewScope());
+        scopeMaps.put("view", new cl.github.erodriguezg.springbootswf.scopes.ViewScope());
         customScopeConfigurer.setScopes(scopeMaps);
         return customScopeConfigurer;
     }

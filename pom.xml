@@ -31,6 +31,7 @@
         <version.postgres>42.0.0</version.postgres>
         <version.hikari>2.6.1</version.hikari>
         <version.commons-beanutils>1.9.3</version.commons-beanutils>
+        <version.urlrewrite>4.0.4</version.urlrewrite>
 
         <version.jsf-api>2.2</version.jsf-api>
         <version.jsf-mojarra>2.2.14</version.jsf-mojarra>
@@ -177,6 +178,14 @@
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-faces</artifactId>
             <version>${version.springwebflow}</version>
+        </dependency>
+
+        <!-- url rewrite -->
+
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>${version.urlrewrite}</version>
         </dependency>
 
         <!-- commons -->

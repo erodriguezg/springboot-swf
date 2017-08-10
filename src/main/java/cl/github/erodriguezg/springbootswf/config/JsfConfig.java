@@ -1,12 +1,18 @@
 package cl.github.erodriguezg.springbootswf.config;
 
+import com.github.erodriguezg.jsfutils.converters.RutConverter;
+import com.github.erodriguezg.jsfutils.converters.jsonconverter.JpaConverterExclusionStrategy;
+import com.github.erodriguezg.jsfutils.converters.jsonconverter.JsonConverter;
 import com.github.erodriguezg.jsfutils.utils.JsfUtils;
+import com.github.erodriguezg.jsfutils.utils.PrimefacesUtils;
 import com.github.erodriguezg.jsfutils.utils.impl.JsfUtilsImpl;
+import com.github.erodriguezg.jsfutils.utils.impl.PrimefacesUtilsImpl;
 import com.sun.faces.config.FacesInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -52,9 +58,29 @@ public class JsfConfig {
     }
 
     @Bean
-    @Scope("request")
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public JsfUtils jsfUtils() {
         return new JsfUtilsImpl();
+    }
+
+    @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+    public PrimefacesUtils primefacesUtils() {
+        return new PrimefacesUtilsImpl();
+    }
+
+    @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public RutConverter rutConverter() {
+        return new RutConverter();
+    }
+
+    @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public JsonConverter jsonConverter() {
+        JsonConverter jsonConverter = new JsonConverter();
+        jsonConverter.setExclusionStrategy(new JpaConverterExclusionStrategy());
+        return jsonConverter;
     }
 
 }
