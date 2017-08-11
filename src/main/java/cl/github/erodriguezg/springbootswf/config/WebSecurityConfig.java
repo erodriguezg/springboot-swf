@@ -22,6 +22,12 @@ import javax.servlet.Filter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String INICIO_URL = "/inicio.xhtml";
+    private static final String LOGIN_URL = "/login.xhtml";
+    private static final String LOGOUT_URL = "/logout";
+    private static final String ACCESS_DENIED_URL = "/access.xthml";
+
+
     @Autowired
     private CustomAuthenticationManager customAuthenticationManager;
 
@@ -31,16 +37,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf ().disable ()
                 .formLogin ()
-                    .loginPage ( "/ui/login" ).permitAll ()
+                    .loginPage ( LOGIN_URL ).permitAll ()
                     .usernameParameter ( "username" )
                     .passwordParameter ( "password" )
                     .loginProcessingUrl ( "/j_spring_security_check" )
-                    .defaultSuccessUrl ( "/ui/inicio", true )
-                    .failureUrl ( "/ui/login?error=true" )
+                    .defaultSuccessUrl ( INICIO_URL, true )
+                    .failureUrl ( LOGIN_URL + "?error=true" )
                 .and()
                     .logout()
-                        .logoutSuccessUrl("/ui/index")
-                        .logoutUrl("/logout")
+                        .logoutSuccessUrl(INICIO_URL)
+                        .logoutUrl(LOGOUT_URL)
                         .invalidateHttpSession(true)
                 .and()
                     .authorizeRequests()
@@ -48,8 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().permitAll()
                 .and()
                     .exceptionHandling()
-                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/ui/login"))
-                        .accessDeniedPage("/ui/index")
+                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_URL))
+                        .accessDeniedPage(ACCESS_DENIED_URL)
                 .and()
                     .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
@@ -58,8 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private Filter customUsernamePasswordAuthenticationFilter() {
         UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
         filter.setAuthenticationManager(customAuthenticationManager);
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/ui/inicio"));
-        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/ui/login"));
+        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler(INICIO_URL));
+        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(LOGIN_URL));
         return filter;
     }
 

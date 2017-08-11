@@ -44,6 +44,7 @@ public class Usuario implements Serializable {
     private Persona persona;
 
     public Usuario() {
+        //empty
     }
 
     public Usuario(Long idPersona) {
