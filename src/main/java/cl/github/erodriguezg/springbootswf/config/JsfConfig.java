@@ -7,20 +7,14 @@ import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import com.github.erodriguezg.jsfutils.utils.PrimefacesUtils;
 import com.github.erodriguezg.jsfutils.utils.impl.JsfUtilsImpl;
 import com.github.erodriguezg.jsfutils.utils.impl.PrimefacesUtilsImpl;
-import com.sun.faces.config.FacesInitializer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.context.annotation.*;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 public class JsfConfig {
@@ -34,14 +28,12 @@ public class JsfConfig {
     }
 
     @Configuration
-    static class ConfigureJSFContextParameters implements ServletContextInitializer {
+    static class CommonsConfigureJSFContextParameters implements ServletContextInitializer {
         @Override
         public void onStartup(ServletContext servletContext) throws ServletException {
             servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
             servletContext.setInitParameter("org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL", "true");
             servletContext.setInitParameter("javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE", "true");
-            servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-            servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
             servletContext.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
             servletContext.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
             servletContext.setInitParameter("javax.faces.PARTIAL_STATE_SAVING", "true");
@@ -50,8 +42,29 @@ public class JsfConfig {
             servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/primefaces-omega.taglib.xml");
             servletContext.setInitParameter("primefaces.UPLOADER", "commons");
             servletContext.setInitParameter("primefaces.FONT_AWESOME", "true");
-            servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
             servletContext.setInitParameter("primefaces.UPLOADER", "commons");
+        }
+    }
+
+    @Configuration
+    @Profile("development")
+    static class DevelopmentConfigureJSFContextParameters implements ServletContextInitializer {
+        @Override
+        public void onStartup(ServletContext servletContext) throws ServletException {
+            servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
+            servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "1");
+            servletContext.setInitParameter("facelets.DEVELOPMENT", "true");
+        }
+    }
+
+    @Configuration
+    @Profile("production")
+    static class ProductionConfigureJSFContextParameters implements ServletContextInitializer {
+        @Override
+        public void onStartup(ServletContext servletContext) throws ServletException {
+            servletContext.setInitParameter("javax.faces.PROJECT_STAGE", "Production");
+            servletContext.setInitParameter("javax.faces.FACELETS_REFRESH_PERIOD", "-1");
+            servletContext.setInitParameter("facelets.DEVELOPMENT", "false");
         }
     }
 
