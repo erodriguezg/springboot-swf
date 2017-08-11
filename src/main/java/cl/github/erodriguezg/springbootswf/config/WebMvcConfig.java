@@ -1,27 +1,24 @@
 package cl.github.erodriguezg.springbootswf.config;
 
-import cl.github.erodriguezg.springbootswf.scopes.ViewScope;
 import com.github.erodriguezg.javautils.CodecUtils;
 import com.github.erodriguezg.javautils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 
 /**
  * Created by eduar on 15/05/2017.
@@ -52,14 +49,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public ViewResolver urlBasedViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".xhtml");
-        return viewResolver;
-    }
-
-    @Bean
     public SimpleControllerHandlerAdapter simpleControllerHandlerAdapter() {
         return new SimpleControllerHandlerAdapter();
     }
@@ -82,16 +71,47 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
     /*
+    Listeners
+    */
+
+    @Bean
+    public RequestContextListener requestContextListener() {
+        return new RequestContextListener();
+    }
+
+    /*
     Filter URL REWRITE
      */
 
     @Bean
-    public FilterRegistrationBean someFilterRegistration() {
+    public FilterRegistrationBean urlRewriteFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new org.tuckey.web.filters.urlrewrite.UrlRewriteFilter());
         registration.addUrlPatterns("/*");
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST));
         registration.setName("urlRewriteFilter");
         registration.setOrder(1);
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean viewExpiredFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new com.github.erodriguezg.jsfutils.support.ViewExpiredFilter());
+        registration.addUrlPatterns("/*");
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST));
+        registration.setName("viewExpiredFilter");
+        registration.setOrder(2);
+        return registration;
+    }
+
+    @Bean
+    public FilterRegistrationBean primefacesFileuploadFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new org.primefaces.webapp.filter.FileUploadFilter());
+        registration.addServletNames(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
+        registration.setName("primefacesFileuploadFilter");
+        registration.setOrder(3);
         return registration;
     }
 

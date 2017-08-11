@@ -15,7 +15,7 @@
 
                 <ui:fragment rendered="#{not identidad.loggedIn}">
                     <div class="profile">
-                        <a href="#{request.contextPath}/ui/login">
+                        <a href="#{request.contextPath}/login.xhtml">
                             <span>Iniciar Sesión</span>
                             <i class="fa fa-fw fa-sign-in"></i>
                         </a>
@@ -43,25 +43,25 @@
                     <h:form id="sidemenu-form">
                         <po:menu>
 
-                            <p:menuitem id="om_inicio" value="Inicio" icon="fa fa-home" url="/ui/inicio"/>
+                            <p:menuitem id="om_inicio" value="Inicio" icon="fa fa-home" url="/inicio.xhtml"/>
                             <p:menuitem id="om_gestionar_usuarios" value="Gestionar Usuarios" icon="fa fa-users"
                                         url="/ui/gestionar_usuarios"/>
                             <p:submenu id="om_components" label="Componentes" icon="fa fa-sitemap">
                                 <p:menuitem id="om_dashboard" value="Dashboard" icon="fa fa-columns"
-                                            url="/ui/dashboard"/>
+                                            url="/dashboard.xhtml"/>
                                 <p:menuitem id="om_showcase_omega" value="Showcase Omega" icon="fa fa-code"
-                                            url="/ui/showcase_omega"/>
+                                            url="/showcase_omega.xhtml"/>
                                 <p:menuitem id="om_showcase_zeke" value="Showcase Zeke" icon="fa fa-code"
-                                            url="/ui/showcase_zeke"/>
+                                            url="/showcase_zeke.xhtml"/>
                             </p:submenu>
                             <p:submenu id="om_default" label="Template Pages" icon="fa fa-life-saver">
-                                <p:menuitem id="om_empty" value="Empty Page" icon="fa fa-square-o" url="/ui/empty"/>
-                                <p:menuitem id="om_login" value="Login Page" icon="fa fa-sign-in" url="/ui/login"/>
+                                <p:menuitem id="om_empty" value="Empty Page" icon="fa fa-square-o" url="/empty.xhtml"/>
+                                <p:menuitem id="om_login" value="Login Page" icon="fa fa-sign-in" url="/login.xhtml"/>
                                 <p:menuitem id="om_error" value="Error Page" icon="fa fa-exclamation-circle"
-                                            url="/ui/error"/>
-                                <p:menuitem id="om_404" value="404 Page" icon="fa fa-times" url="/ui/404"/>
+                                            url="/error.xhtml"/>
+                                <p:menuitem id="om_404" value="404 Page" icon="fa fa-times" url="/404.xhtml"/>
                                 <p:menuitem id="om_access" value="Access Denied Page" icon="fa fa-exclamation-triangle"
-                                            url="/ui/access"/>
+                                            url="/access.xhtml"/>
                             </p:submenu>
                             <p:submenu id="om_hierarchy" label="Menu Hierarchy" icon="fa fa-gg">
                                 <p:submenu id="om_sm1" label="Submenu 1" icon="fa fa-sign-in">

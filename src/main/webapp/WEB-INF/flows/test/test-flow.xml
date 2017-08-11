@@ -7,5 +7,5 @@
         <transition on="salir" to="exit" />
     </view-state>
 
-    <end-state id="exit" view="externalRedirect:contextRelative:/ui/inicio"/>
+    <end-state id="exit" view="externalRedirect:contextRelative:/inicio.xhtml"/>
 </flow>

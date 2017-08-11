@@ -4,27 +4,19 @@
 
 <urlrewrite>
 
-
-    <rule>
-        <from>/WEB-INF/views/showcase_zeke.xhtml</from>
-        <to type="redirect">/ui/showcase_zeke</to>
-    </rule>
-
-    <!--
     <rule>
         <from>^/$</from>
         <to type="redirect">%{context-path}/inicio.xhtml</to>
     </rule>
 
     <rule>
-        <from>^/app/$</from>
+        <from>^/ui/$</from>
         <to type="redirect">%{context-path}/inicio.xhtml</to>
     </rule>
     <rule>
-        <from>^/app$</from>
+        <from>^/ui$</from>
         <to type="redirect">%{context-path}/inicio.xhtml</to>
     </rule>
--->
 
     <!--
 <rule>
