@@ -1,13 +1,12 @@
 package cl.github.erodriguezg.springbootswf.services.dto;
 
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class UsuarioFiltroDto implements Serializable {
 
     private static final long serialVersionUID = -7369622710383099279L;
-    
+
     private String nombres;
     private String apellidos;
     private Integer rut;
@@ -15,6 +14,7 @@ public class UsuarioFiltroDto implements Serializable {
     private Date fechaNacimientoInferior;
     private Date fechaNacimientoSuperior;
     private Boolean habilitado;
+    private PerfilDto perfilDto;
 
     public String getNombres() {
         return nombres;
@@ -72,4 +72,11 @@ public class UsuarioFiltroDto implements Serializable {
         this.habilitado = habilitado;
     }
 
+    public PerfilDto getPerfilDto() {
+        return perfilDto;
+    }
+
+    public void setPerfilDto(PerfilDto perfilDto) {
+        this.perfilDto = perfilDto;
+    }
 }

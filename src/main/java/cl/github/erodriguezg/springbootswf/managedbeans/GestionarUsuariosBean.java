@@ -1,10 +1,12 @@
 package cl.github.erodriguezg.springbootswf.managedbeans;
 
 import cl.github.erodriguezg.springbootswf.entities.Usuario;
+import cl.github.erodriguezg.springbootswf.exceptions.LogicaNegocioException;
 import cl.github.erodriguezg.springbootswf.security.Identidad;
 import cl.github.erodriguezg.springbootswf.services.UsuarioService;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioFiltroDto;
+import cl.github.erodriguezg.springbootswf.utils.ConstantesUtil;
 import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,28 +65,24 @@ public class GestionarUsuariosBean implements Serializable {
         }
     }
 
-    public void eliminar(Usuario usuario) {
-       /* try {
-            if (identidad.getRutPersona().equals(usuario.getRut())) {
-                jsfUtils.addErrorMessage(ConstantesUtil.MSJ_ELIMINAR_A_SI_MISMO);
-                return;
-            }
-            usuarioService.eliminar(usuario);
+    public void eliminar(UsuarioDto usuarioDto) {
+        try {
+            usuarioService.eliminar(usuarioDto, identidad.getIdPersona());
             buscar();
             jsfUtils.addInfoMessage(ConstantesUtil.MSJ_ELIMINAR_USUARIO);
         } catch (LogicaNegocioException ex) {
             LOG.debug("negocio exception eliminar", ex);
             jsfUtils.addErrorMessage(ex.getMessage());
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             LOG.error("error eliminar", ex);
             jsfUtils.addErrorMessage(ConstantesUtil.MSJ_ERROR_INTERNO);
-        }*/
+        }
     }
 
-    public void habilitar(Usuario usuario) {
-      /*  try {
-            usuarioService.habilitar(usuario);
-            usuario.setHabilitado(true);
+    public void habilitar(UsuarioDto usuarioDto) {
+        try {
+            usuarioService.habilitar(usuarioDto);
+            usuarioDto.setHabilitado(true);
             jsfUtils.addInfoMessage(ConstantesUtil.MSJ_HABILITAR_USUARIO);
         } catch (LogicaNegocioException ex) {
             LOG.debug("negocio exception habilitar", ex);
@@ -92,17 +90,13 @@ public class GestionarUsuariosBean implements Serializable {
         } catch (Exception ex) {
             LOG.error("error habilitar", ex);
             jsfUtils.addErrorMessage(ConstantesUtil.MSJ_ERROR_INTERNO);
-        }*/
+        }
     }
 
-    public void deshabilitar(Usuario usuario) {
-       /* try {
-            if (identidad.getRutPersona().equals(usuario.getRut())) {
-                jsfUtils.addErrorMessage(ConstantesUtil.MSJ_DESHABILITAR_A_SI_MISMO);
-                return;
-            }
-            usuarioService.deshabilitar(usuario);
-            usuario.setHabilitado(false);
+    public void deshabilitar(UsuarioDto usuarioDto) {
+        try {
+            usuarioService.deshabilitar(usuarioDto, identidad.getIdPersona());
+            usuarioDto.setHabilitado(false);
             jsfUtils.addInfoMessage(ConstantesUtil.MSJ_DESHABILITAR_USUARIO);
         } catch (LogicaNegocioException ex) {
             LOG.debug("negocio exception deshabilitar", ex);
@@ -110,7 +104,7 @@ public class GestionarUsuariosBean implements Serializable {
         } catch (Exception ex) {
             LOG.error("error deshabilitar", ex);
             jsfUtils.addErrorMessage(ConstantesUtil.MSJ_ERROR_INTERNO);
-        }*/
+        }
     }
 
     /* getters and setters */

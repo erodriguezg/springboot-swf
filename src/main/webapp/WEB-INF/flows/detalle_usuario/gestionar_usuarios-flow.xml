@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+      	http://www.springframework.org/schema/webflow
+      	http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd"
+      start-state="iniciar_editar">
+
+    <var name="editarUsuarioBean" class="cl.github.erodriguezg.springbootswf.managedbeans.EditarUsuarioBean" />
+
+    <input name="usuario" value="flowScope.usuarioSelected" required="false" />
+        
+    <action-state id="iniciar_editar">
+        <evaluate expression="editarUsuarioBean.iniciar(flowScope.usuarioSelected)"/>
+        <transition to="editar_usuario_view"/>
+    </action-state>
+
+    <view-state id="editar_usuario_view">
+        <transition on="volver" to="salir"/>
+        <transition on="exito" to="salir"/>
+    </view-state>
+
+    <end-state id="salir" view="externalRedirect:contextRelative:/inicio.xhtml"/>
+
+</flow>

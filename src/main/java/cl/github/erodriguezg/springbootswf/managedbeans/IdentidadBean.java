@@ -3,14 +3,17 @@ package cl.github.erodriguezg.springbootswf.managedbeans;
 import cl.github.erodriguezg.springbootswf.security.Identidad;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
+
 @Component("identidad")
-@Scope("request")
-public class IdentidadBean implements Identidad {
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class IdentidadBean implements Identidad, Serializable {
 
     public boolean tieneRol(String rol) {
         UsernamePasswordAuthenticationToken token = getSecurityToken();

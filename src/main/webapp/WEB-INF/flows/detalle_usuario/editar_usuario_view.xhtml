@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText rendered="#{!editarUsuarioBean.modoEditar}" value="Crear Usuario"/>
+        <h:outputText rendered="#{editarUsuarioBean.modoEditar}" value="Editar Usuario"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="formUsuario">
+
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-lg-6">
+                    <div class="card">
+                        <h1>Datos personales</h1>
+                        <p:panelGrid id="formPanel" columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
+
+                            <p:outputLabel value="RUT: " for="rut"/>
+                            <h:panelGroup>
+                                <h:outputText value="#{editarUsuarioBean.usuario.rut}"
+                                              rendered="#{editarUsuarioBean.modoEditar}" converter="#{rutConverter}">
+                                </h:outputText>
+                                <p:inputText id="rut" value="#{editarUsuarioBean.usuario.rut}"
+                                             styleClass="validaRut"
+                                             required="true" converter="#{rutConverter}"
+                                             validator="#{editarUsuarioBean.validarRut}"
+                                             rendered="#{!editarUsuarioBean.modoEditar}">
+                                    <p:ajax process="rut" update="rut rutmsg" event="blur"/>
+                                </p:inputText>
+                                <p:message id="rutmsg" for="rut" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Perfil: " for="perfil"/>
+                            <h:panelGroup>
+                                <p:selectOneMenu id="perfil"
+                                                 value="#{editarUsuarioBean.usuario.perfil}"
+                                                 required="true"
+                                                 converter="#{jsonConverter}">
+                                    <f:selectItem itemLabel=" "/>
+                                    <f:selectItems value="#{perfilBean.traerTodos}"
+                                                   var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
+                                </p:selectOneMenu>
+                                <p:message id="perfilMsg" for="perfil" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Fecha Nacimiento: " for="fecha"/>
+                            <h:panelGroup>
+                                <p:calendar id="fecha" value="#{editarUsuarioBean.usuario.fechaNacimiento}"
+                                            readonlyInput="true"
+                                            locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
+                                            showOn="button"/>
+                                <p:message id="fechaMsg" for="fecha" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Nombres: " for="nombres"/>
+                            <h:panelGroup>
+                                <p:inputText id="nombres" value="#{editarUsuarioBean.usuario.nombres}"
+                                             required="true"/>
+                                <p:message id="nombresMsg" for="nombres" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Apellidos: " for="apellidos"/>
+                            <h:panelGroup>
+                                <p:inputText id="apellidos" value="#{editarUsuarioBean.usuario.apellidos}"
+                                             required="true"/>
+                                <p:message id="apellidosMsg" for="apellidos" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Correo eletronico: " for="email"/>
+                            <h:panelGroup>
+                                <p:inputText id="email" value="#{editarUsuarioBean.usuario.email}"/>
+                                <p:message id="emailMsg" for="email" display="text"/>
+                            </h:panelGroup>
+
+                        </p:panelGrid>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <div class="card">
+                        <h1>Identificación</h1>
+                        <p:panelGrid id="identificacionGrid" columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
+                            <h:panelGroup rendered="#{editarUsuarioBean.modoEditar}">
+                                <p>Si desea cambiar las contraseñas ingreselas a continuación</p>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Contraseña: " for="password"/>
+                            <h:panelGroup>
+                                <p:password id="password" value="#{editarUsuarioBean.password}"
+                                            required="#{!editarUsuarioBean.modoEditar}">
+                                </p:password>
+                                <p:message id="passwordmsg" for="password" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Confirmar password: " for="confirmarPassword"/>
+                            <h:panelGroup>
+                                <p:password id="confirmarPassword" value="#{editarUsuarioBean.passwordConfirmacion}"
+                                            required="#{!editarUsuarioBean.modoEditar}">
+                                </p:password>
+                                <p:message id="confirmarPasswordMsg" for="confirmarPassword" display="text"/>
+                            </h:panelGroup>
+                        </p:panelGrid>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-lg-12">
+                    <div class="card">
+                        <p:commandButton id="btnGuardar"
+                                         action="#{editarUsuarioBean.guardar()}"
+                                         style="width: auto"
+                                         process="formUsuario" update="formUsuario"
+                                         icon="fa fa-save"
+                                         value="Guardar">
+                            <p:confirm header="Guardar Usuario"
+                                       message="¿Esta seguro que desea guardar usuario?"
+                                       icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:commandButton id="btnVolver"
+                                         style="width: auto"
+                                         icon="fa fa-step-backward"
+                                         value="Volver" action="volver" immediate="true" ajax="false"/>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

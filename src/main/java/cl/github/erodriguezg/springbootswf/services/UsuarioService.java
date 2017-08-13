@@ -14,16 +14,12 @@ public interface UsuarioService {
 
     UsuarioDto traerPorUsername(String username);
 
-    UsuarioDto traerPorRut(String rutString);
-
-    UsuarioDto traerPorRut(Integer rut);
-
     List<UsuarioDto> buscar(UsuarioFiltroDto filterDto);
 
-    void eliminar(UsuarioDto usuario);
+    void eliminar(UsuarioDto usuario, Long idPersonaIdentidad);
 
     void habilitar(UsuarioDto usuario);
 
-    void deshabilitar(UsuarioDto usuario);
+    void deshabilitar(UsuarioDto usuario, Long idUsuarioActual);
 
 }

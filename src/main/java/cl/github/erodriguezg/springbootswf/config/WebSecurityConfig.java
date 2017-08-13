@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                    .antMatchers("/ui/gestionar_usuarios/**").hasAuthority("PERFIL_SUPER_ADMINISTRADOR")
+                    .antMatchers("/ui/gestionar_usuarios/**").hasAuthority("PERFIL_ADMINISTRADOR")
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()

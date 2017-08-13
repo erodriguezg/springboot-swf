@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
+      start-state="iniciar_gestionar">
+
+    <var name="gestionarUsuariosBean" class="cl.github.erodriguezg.springbootswf.managedbeans.GestionarUsuariosBean"/>
+
+    <action-state id="iniciar_gestionar">
+        <evaluate expression="gestionarUsuariosBean.iniciar()"/>
+        <transition to="buscar_usuarios"/>
+    </action-state>
+
+    <action-state id="buscar_usuarios">
+        <evaluate expression="gestionarUsuariosBean.buscar()"/>
+        <transition to="gestionar_usuarios_view"/>
+    </action-state>
+
+    <view-state id="gestionar_usuarios_view">
+        <transition on="ir_crear" to="editar_usuario_subflow">
+            <set name="gestionarUsuariosBean.usuarioSelected" value="null"/>
+        </transition>
+        <transition on="ir_editar" to="editar_usuario_subflow"/>
+        <transition on="salir" to="salir"/>
+    </view-state>
+
+    <subflow-state id="editar_usuario_subflow" subflow="detalle_usuario">
+        <input name="usuario" value="gestionarUsuariosBean.usuarioSelected"/>
+        <transition on="salir" to="buscar_usuarios"/>
+    </subflow-state>
+
+    <end-state id="salir" view="externalRedirect:contextRelative:/inicio.xhtml"/>
+
+</flow>
