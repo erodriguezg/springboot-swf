@@ -4,10 +4,14 @@ import com.github.erodriguezg.javautils.CodecUtils;
 import com.github.erodriguezg.javautils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -113,6 +117,17 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registration.setName("primefacesFileuploadFilter");
         registration.setOrder(3);
         return registration;
+    }
+
+    @Bean
+    public EmbeddedServletContainerCustomizer containerCustomizer() {
+        return new EmbeddedServletContainerCustomizer() {
+            @Override
+            public void customize(ConfigurableEmbeddedServletContainer container) {
+                container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.xhtml"));
+                container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error.xhtml"));
+            }
+        };
     }
 
     /*

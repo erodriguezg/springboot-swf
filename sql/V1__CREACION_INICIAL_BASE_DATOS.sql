@@ -1,10 +1,4 @@
 /*==============================================================*/
-/* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     05/07/2017 21:03:14                          */
-/*==============================================================*/
-
-
-/*==============================================================*/
 /* Table: comuna                                                */
 /*==============================================================*/
 create table comuna (
@@ -28,10 +22,11 @@ create table perfil_usuario (
 /*==============================================================*/
 create table persona (
    id_persona           bigserial            not null,
+   id_comuna            int4                 null,
    run                  int4                 null,
    nombres              varchar(255)         not null,
-   apellidopaterno      varchar(255)         not null,
-   apellidomaterno      varchar(255)         null,
+   apellido_paterno      varchar(255)         not null,
+   apellido_materno      varchar(255)         null,
    fechanacimiento      date                 null,
    telefono             varchar(20)          null,
    email                varchar(100)         not null,
@@ -80,6 +75,7 @@ create table usuario (
    id_perfil_usuario    int4                 not null,
    username             varchar(255)         not null,
    password             varchar(500)         null,
+   habilitado           boolean              not null,
    constraint pk_usuario primary key (id_persona)
 );
 
@@ -108,5 +104,10 @@ alter table usuario
 alter table usuario
    add constraint fk_usuario_reference_perfil_u foreign key (id_perfil_usuario)
       references perfil_usuario (id_perfil_usuario)
+      on delete restrict on update restrict;
+
+alter table persona
+   add constraint fk_persona_reference_comuna foreign key (id_comuna)
+      references comuna (id_comuna)
       on delete restrict on update restrict;
 

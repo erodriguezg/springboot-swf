@@ -14,9 +14,8 @@ public class ConstantesUtil {
     public static final String MSJ_DESHABILITAR_A_SI_MISMO = "No puede deshabilitar a si mismo";
     public static final String MSJ_ELIMINAR_A_SI_MISMO = "No puede eliminar a si mismo";
 
-    public static final int ID_PERFIL_SUPER_ADMINISTRADOR = 1;
-    public static final int ID_PERFIL_ADMINISTRADOR = 2;
-    public static final int ID_PERFIL_USUARIO = 3;
+    public static final int ID_PERFIL_ADMINISTRADOR = 1;
+    public static final int ID_PERFIL_USUARIO = 2;
 
 
     private ConstantesUtil() {

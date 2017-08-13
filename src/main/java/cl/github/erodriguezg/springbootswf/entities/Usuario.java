@@ -1,29 +1,19 @@
 package cl.github.erodriguezg.springbootswf.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
- *
  * @author eduar
  */
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdPersona", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
-    , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
-    , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
+        @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+        , @NamedQuery(name = "Usuario.findByIdPersona", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
+        , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")
+        , @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 7439126925283605347L;
@@ -42,6 +32,9 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Persona persona;
+
+    @Column(name = "habilitado")
+    private Boolean habilitado;
 
     public Usuario() {
         //empty
@@ -94,6 +87,14 @@ public class Usuario implements Serializable {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public Boolean getHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(Boolean habilitado) {
+        this.habilitado = habilitado;
     }
 
     @Override

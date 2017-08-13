@@ -20,7 +20,7 @@ public class LoginBean implements Serializable {
     @Autowired
     private JsfUtils jsfUtils;
 
-    private Integer rut;
+    private String username;
 
     private String password;
 
@@ -39,18 +39,18 @@ public class LoginBean implements Serializable {
         FacesContext facesContext = jsfUtils.getFacesContextCurrentInstance();
         HttpServletRequest httpRequest = jsfUtils.obtenerHttpServletRequest();
         HttpServletResponse httpResponse = jsfUtils.obtenerHttpServletResponse();
-        RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/j_spring_security_check");
+        RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/login-process");
         dispatcher.forward(httpRequest, httpResponse);
         facesContext.responseComplete();
         return null;
     }
 
-    public Integer getRut() {
-        return rut;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRut(Integer rut) {
-        this.rut = rut;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

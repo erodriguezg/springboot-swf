@@ -23,7 +23,7 @@
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verificarErroresLogin()}"/>
         </f:metadata>
-        
+
         <h:form id="loginForm" prependId="false" >
             <div id="login-wrapper">
                 <p:graphicImage name="images/login-logo.png" library="omega-layout" />
@@ -36,11 +36,8 @@
 
                     <div class="ui-g ui-fluid">
                         <div class="ui-g-12">
-                            <p:inputText id="j_username" placeholder="Rut" value="#{loginBean.rut}" 
-                                         styleClass="validaRut" required="true" 
-                                         requiredMessage="Rut es requerido" converter="#{rutConverter}">
-                                <p:ajax process="@this" update="@this" event="blur" global="false"/>
-                            </p:inputText>
+                            <p:inputText id="j_username" placeholder="Username" requiredMessage="Username es requerido"
+                                         value="#{loginBean.username}"  required="true" />
                         </div>
                         <div class="ui-g-12">
                             <p:password id="j_password" value="#{loginBean.password}" 

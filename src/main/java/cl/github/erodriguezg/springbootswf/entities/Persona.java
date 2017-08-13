@@ -8,7 +8,6 @@ package cl.github.erodriguezg.springbootswf.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -22,8 +21,8 @@ import javax.persistence.*;
     , @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona")
     , @NamedQuery(name = "Persona.findByRun", query = "SELECT p FROM Persona p WHERE p.run = :run")
     , @NamedQuery(name = "Persona.findByNombres", query = "SELECT p FROM Persona p WHERE p.nombres = :nombres")
-    , @NamedQuery(name = "Persona.findByApellidopaterno", query = "SELECT p FROM Persona p WHERE p.apellidopaterno = :apellidopaterno")
-    , @NamedQuery(name = "Persona.findByApellidomaterno", query = "SELECT p FROM Persona p WHERE p.apellidomaterno = :apellidomaterno")
+    , @NamedQuery(name = "Persona.findByApellidoPaterno", query = "SELECT p FROM Persona p WHERE p.apellidoPaterno = :apellidoPaterno")
+    , @NamedQuery(name = "Persona.findByApellidoMaterno", query = "SELECT p FROM Persona p WHERE p.apellidoMaterno = :apellidoMaterno")
     , @NamedQuery(name = "Persona.findByFechanacimiento", query = "SELECT p FROM Persona p WHERE p.fechanacimiento = :fechanacimiento")
     , @NamedQuery(name = "Persona.findByTelefono", query = "SELECT p FROM Persona p WHERE p.telefono = :telefono")
     , @NamedQuery(name = "Persona.findByEmail", query = "SELECT p FROM Persona p WHERE p.email = :email")})
@@ -41,10 +40,10 @@ public class Persona implements Serializable {
     @Column(name = "nombres")
     private String nombres;
     @Basic(optional = false)
-    @Column(name = "apellidopaterno")
-    private String apellidopaterno;
-    @Column(name = "apellidomaterno")
-    private String apellidomaterno;
+    @Column(name = "apellido_paterno")
+    private String apellidoPaterno;
+    @Column(name = "apellido_materno")
+    private String apellidoMaterno;
     @Column(name = "fechanacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechanacimiento;
@@ -54,6 +53,10 @@ public class Persona implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @ManyToOne
+    @JoinColumn(name="id_comuna")
+    private Comuna comuna;
+
     public Persona() {
     }
 
@@ -61,10 +64,10 @@ public class Persona implements Serializable {
         this.idPersona = idPersona;
     }
 
-    public Persona(Long idPersona, String nombres, String apellidopaterno, String email) {
+    public Persona(Long idPersona, String nombres, String apellidoPaterno, String email) {
         this.idPersona = idPersona;
         this.nombres = nombres;
-        this.apellidopaterno = apellidopaterno;
+        this.apellidoPaterno = apellidoPaterno;
         this.email = email;
     }
 
@@ -92,20 +95,20 @@ public class Persona implements Serializable {
         this.nombres = nombres;
     }
 
-    public String getApellidopaterno() {
-        return apellidopaterno;
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
     }
 
-    public void setApellidopaterno(String apellidopaterno) {
-        this.apellidopaterno = apellidopaterno;
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApellidomaterno() {
-        return apellidomaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setApellidomaterno(String apellidomaterno) {
-        this.apellidomaterno = apellidomaterno;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public Date getFechanacimiento() {
@@ -132,9 +135,17 @@ public class Persona implements Serializable {
         this.email = email;
     }
 
+    public Comuna getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
+    }
+
     @Transient
     public String getNombreCompleto() {
-        return nombres + " " + apellidopaterno + " " + apellidomaterno;
+        return nombres + " " + apellidoPaterno + " " + apellidoMaterno;
     }
 
     @Override
@@ -156,8 +167,8 @@ public class Persona implements Serializable {
                 "idPersona=" + idPersona +
                 ", run=" + run +
                 ", nombres='" + nombres + '\'' +
-                ", apellidopaterno='" + apellidopaterno + '\'' +
-                ", apellidomaterno='" + apellidomaterno + '\'' +
+                ", apellidoPaterno='" + apellidoPaterno + '\'' +
+                ", apellidoMaterno='" + apellidoMaterno + '\'' +
                 ", fechanacimiento=" + fechanacimiento +
                 ", telefono='" + telefono + '\'' +
                 ", email='" + email + '\'' +

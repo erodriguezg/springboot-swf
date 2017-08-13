@@ -17,7 +17,9 @@ public class UsuarioDto implements Serializable {
 
     private String nombres;
 
-    private String apellidos;
+    private String apPaterno;
+
+    private String apMaterno;
 
     private String password;
 
@@ -61,14 +63,6 @@ public class UsuarioDto implements Serializable {
         return this.nombres;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getApellidos() {
-        return this.apellidos;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -107,6 +101,22 @@ public class UsuarioDto implements Serializable {
 
     public void setPerfil(PerfilDto perfil) {
         this.perfil = perfil;
+    }
+
+    public String getApPaterno() {
+        return apPaterno;
+    }
+
+    public void setApPaterno(String apPaterno) {
+        this.apPaterno = apPaterno;
+    }
+
+    public String getApMaterno() {
+        return apMaterno;
+    }
+
+    public void setApMaterno(String apMaterno) {
+        this.apMaterno = apMaterno;
     }
 
     @Override

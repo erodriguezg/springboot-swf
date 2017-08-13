@@ -1,10 +1,14 @@
 package cl.github.erodriguezg.springbootswf.services.impl;
 
+import cl.github.erodriguezg.springbootswf.dao.UsuarioDao;
+import cl.github.erodriguezg.springbootswf.entities.Usuario;
 import cl.github.erodriguezg.springbootswf.services.UsuarioService;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioFiltroDto;
+import cl.github.erodriguezg.springbootswf.services.mappers.UsuarioMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @PersistenceContext
     private EntityManager em;
 
+    @Autowired
+    private UsuarioDao usuarioDao;
+
+    @Autowired
+    private UsuarioMapper usuarioMapper;
 
     @Transactional(readOnly = true)
     @Override
@@ -38,7 +47,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioDto traerPorUsername(String username) {
-        return null;
+        Usuario usuario = usuarioDao.traerPorUsername(username);
+        return usuarioMapper.toUsuarioDto(usuario);
     }
 
     @Transactional(readOnly = true)

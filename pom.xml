@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <plugin.flyway.version>4.2.0</plugin.flyway.version>
-        <plugin.flyway.url>jdbc:postgresql://localhost:5432/deptomanager</plugin.flyway.url>
+        <plugin.flyway.url>jdbc:postgresql://localhost:5432/springboot-swf</plugin.flyway.url>
         <plugin.flyway.user>postgres</plugin.flyway.user>
         <plugin.flyway.password>postgres</plugin.flyway.password>
 

@@ -2,36 +2,36 @@ package cl.github.erodriguezg.springbootswf.managedbeans;
 
 import cl.github.erodriguezg.springbootswf.security.Identidad;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Component("identidad")
 @Scope("request")
 public class IdentidadBean implements Identidad {
 
-    @Autowired
-    private HttpServletRequest httpRequest;
-
     public boolean tieneRol(String rol) {
-        return httpRequest.isUserInRole(rol);
+        UsernamePasswordAuthenticationToken token = getSecurityToken();
+        return token != null && token.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(rol));
     }
 
     private UsuarioDto obtenerUsuarioDesdeSesion() {
-        Object principal = getPrincipal();
-        if (principal != null && (principal instanceof UsuarioDto)) {
-            return (UsuarioDto) principal;
+        UsernamePasswordAuthenticationToken token = getSecurityToken();
+        if (token != null && token.getPrincipal() != null && (token.getPrincipal() instanceof UsuarioDto)) {
+            return (UsuarioDto) token.getPrincipal();
         }
         return null;
     }
 
-    private Object getPrincipal() {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) httpRequest.getUserPrincipal();
-        return token != null ? token.getPrincipal() : null;
+    private UsernamePasswordAuthenticationToken getSecurityToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication instanceof UsernamePasswordAuthenticationToken)) {
+            return null;
+        }
+        return (UsernamePasswordAuthenticationToken) authentication;
     }
 
     @Override
