@@ -59,7 +59,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     @Override
     public List<UsuarioDto> buscar(UsuarioFiltroDto usuarioFiltroDto) {
-        return  this.traerTodos();
+        List<Usuario> usuarioList = this.usuarioDao.traerPorFiltro(usuarioFiltroDto);
+        return usuarioList.stream()
+                .map(this.usuarioMapper::toUsuarioDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = false)

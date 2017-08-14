@@ -2,8 +2,12 @@ package cl.github.erodriguezg.springbootswf.services.mappers;
 
 import cl.github.erodriguezg.springbootswf.entities.Usuario;
 import cl.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
+import cl.github.erodriguezg.springbootswf.services.dto.UsuarioFiltroDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created by eduar on 05/07/2017.

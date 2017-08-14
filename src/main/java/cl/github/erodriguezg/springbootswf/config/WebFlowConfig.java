@@ -20,7 +20,7 @@ public class WebFlowConfig extends AbstractFacesFlowConfiguration {
     public FlowExecutor flowExecutor() {
         return getFlowExecutorBuilder(flowRegistry())
                 .setMaxFlowExecutions(5)
-                .setMaxFlowExecutionSnapshots(-1)
+                .setMaxFlowExecutionSnapshots(10)
                 .addFlowExecutionListener(new FlowFacesContextLifecycleListener())
                 .addFlowExecutionListener(new SecurityFlowExecutionListener())
                 .build();

@@ -11,6 +11,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -46,7 +47,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public FlowHandlerAdapter flowHandlerAdapter() {
-        FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
+        JsfFlowHandlerAdapter handlerAdapter = new JsfFlowHandlerAdapter();
         handlerAdapter.setFlowExecutor(this.webFlowConfig.flowExecutor());
         handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
         return handlerAdapter;
@@ -125,6 +126,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public void customize(ConfigurableEmbeddedServletContainer container) {
                 container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.xhtml"));
+                container.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/access.xhtml"));
                 container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error.xhtml"));
             }
         };

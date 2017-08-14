@@ -7,9 +7,10 @@ public class UsuarioFiltroDto implements Serializable {
 
     private static final long serialVersionUID = -7369622710383099279L;
 
+    private Integer run;
     private String nombres;
-    private String apellidos;
-    private Integer rut;
+    private String apPaterno;
+    private String apMaterno;
     private String email;
     private Date fechaNacimientoInferior;
     private Date fechaNacimientoSuperior;
@@ -22,22 +23,6 @@ public class UsuarioFiltroDto implements Serializable {
 
     public void setNombres(String nombres) {
         this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public Integer getRut() {
-        return rut;
-    }
-
-    public void setRut(Integer rut) {
-        this.rut = rut;
     }
 
     public String getEmail() {
@@ -78,5 +63,29 @@ public class UsuarioFiltroDto implements Serializable {
 
     public void setPerfilDto(PerfilDto perfilDto) {
         this.perfilDto = perfilDto;
+    }
+
+    public String getApPaterno() {
+        return apPaterno;
+    }
+
+    public void setApPaterno(String apPaterno) {
+        this.apPaterno = apPaterno;
+    }
+
+    public String getApMaterno() {
+        return apMaterno;
+    }
+
+    public void setApMaterno(String apMaterno) {
+        this.apMaterno = apMaterno;
+    }
+
+    public Integer getRun() {
+        return run;
+    }
+
+    public void setRun(Integer run) {
+        this.run = run;
     }
 }

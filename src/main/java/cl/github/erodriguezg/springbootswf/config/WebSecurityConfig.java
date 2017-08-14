@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String INICIO_URL = "/inicio.xhtml";
     private static final String LOGIN_URL = "/login.xhtml";
     private static final String LOGOUT_URL = "/logout";
-    private static final String ACCESS_DENIED_URL = "/access.xthml";
+    private static final String ACCESS_DENIED_URL = "/access.xhtml";
 
     @Autowired
     private CustomAuthenticationProvider authProvider;

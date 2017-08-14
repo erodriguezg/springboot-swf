@@ -14,79 +14,92 @@
                 <div class="ui-g-12 ui-lg-3">
                     <div class="card">
                         <h1>Filtros Busqueda</h1>
-                        <p:panelGrid id="filtroPanel" columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
-                            <p:outputLabel value="RUT: " for="rut" />
+                        <p:panelGrid id="filtroPanel" columns="1" layout="grid"
+                                     styleClass="ui-panelgrid-blank grid-pad">
+                            <p:outputLabel value="RUT: " for="rut"/>
                             <h:panelGroup>
-                                <p:inputText id="rut" value="#{gestionarUsuariosBean.usuarioFilterDto.rut}"
+                                <p:inputText id="rut" value="#{gestionarUsuariosBean.usuarioFilterDto.run}"
                                              converter="#{rutConverter}" styleClass="validaRut">
                                 </p:inputText>
-                                <p:message id="rutMsg" for="rut" display="text"  />
+                                <p:message id="rutMsg" for="rut" display="text"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Nombre: " for="nombre" />
+                            <p:outputLabel value="Nombre: " for="nombre"/>
                             <h:panelGroup>
-                                <p:inputText id="nombre" value="#{gestionarUsuariosBean.usuarioFilterDto.nombres}" />
-                                <p:message id="nombreMsg" for="nombre" />
+                                <p:inputText id="nombre" value="#{gestionarUsuariosBean.usuarioFilterDto.nombres}"/>
+                                <p:message id="nombreMsg" for="nombre"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Apellidos: " for="apellidos" />
+                            <p:outputLabel value="Apellidos Paterno: " for="apPaterno"/>
                             <h:panelGroup>
-                                <p:inputText id="apellidos" value="#{gestionarUsuariosBean.usuarioFilterDto.apellidos}" />
-                                <p:message id="apellidosMsg" for="apellidos" />
+                                <p:inputText id="apPaterno"
+                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apPaterno}"/>
+                                <p:message id="apPaternoMsg" for="apPaterno"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Email: " for="email" />
+                            <p:outputLabel value="Apellidos Materno: " for="apMaterno"/>
                             <h:panelGroup>
-                                <p:inputText id="email" value="#{gestionarUsuariosBean.usuarioFilterDto.email}" />
-                                <p:message id="emailMsg" for="email" />
+                                <p:inputText id="apMaterno"
+                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apMaterno}"/>
+                                <p:message id="apMaternoMsg" for="apMaterno"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Perfil: " for="perfil" />
+                            <p:outputLabel value="Email: " for="email"/>
                             <h:panelGroup>
-                                <p:selectOneMenu id="perfil" 
+                                <p:inputText id="email" value="#{gestionarUsuariosBean.usuarioFilterDto.email}"/>
+                                <p:message id="emailMsg" for="email"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Perfil: " for="perfil"/>
+                            <h:panelGroup>
+                                <p:selectOneMenu id="perfil"
                                                  value="#{gestionarUsuariosBean.usuarioFilterDto.perfilDto}"
                                                  converter="#{jsonConverter}">
-                                    <f:selectItem itemLabel=" " />
-                                    <f:selectItems value="#{perfilBean.traerTodos}" 
-                                                   var="p" itemLabel="#{p.nombre}" itemValue="#{p}" />
+                                    <f:selectItem itemLabel=" "/>
+                                    <f:selectItems value="#{perfilBean.traerTodos}"
+                                                   var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
                                 </p:selectOneMenu>
-                                <p:message id="perfilMsg" for="perfil" />
+                                <p:message id="perfilMsg" for="perfil"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="F. Nacimiento máxima: " for="fechaMaxima"  />
+                            <p:outputLabel value="F. Nacimiento máxima: " for="fechaMaxima"/>
                             <h:panelGroup>
-                                <p:calendar id="fechaMaxima" value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoSuperior}"
-                                            locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0" showOn="button" />
-                                <p:message id="fechaMaximaMsg" for="fechaMaxima" />
+                                <p:calendar id="fechaMaxima"
+                                            value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoSuperior}"
+                                            locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
+                                            showOn="button"/>
+                                <p:message id="fechaMaximaMsg" for="fechaMaxima"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="F. Nacimiento minima: " for="fechaMinima" />
+                            <p:outputLabel value="F. Nacimiento minima: " for="fechaMinima"/>
                             <h:panelGroup>
-                                <p:calendar id="fechaMinima" value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoInferior}" 
-                                            locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0" showOn="button" />
-                                <p:message id="fechaMinimaMsg" for="fechaMinima" display="icon"  />
+                                <p:calendar id="fechaMinima"
+                                            value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoInferior}"
+                                            locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
+                                            showOn="button"/>
+                                <p:message id="fechaMinimaMsg" for="fechaMinima" display="icon"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Habilitado: " for="habilitado" />
+                            <p:outputLabel value="Habilitado: " for="habilitado"/>
                             <h:panelGroup>
-                                <p:selectOneMenu id="habilitado" 
+                                <p:selectOneMenu id="habilitado"
                                                  value="#{gestionarUsuariosBean.usuarioFilterDto.habilitado}">
-                                    <f:selectItem itemLabel="" />
-                                    <f:selectItem itemLabel="Sí" itemValue="#{true}" />
-                                    <f:selectItem itemLabel="No" itemValue="#{false}" />
+                                    <f:selectItem itemLabel=""/>
+                                    <f:selectItem itemLabel="Sí" itemValue="#{true}"/>
+                                    <f:selectItem itemLabel="No" itemValue="#{false}"/>
                                 </p:selectOneMenu>
-                                <p:message id="habilitadoMsg" for="habilitado" />
+                                <p:message id="habilitadoMsg" for="habilitado"/>
                             </h:panelGroup>
 
                             <f:facet name="footer">
-                                <p:commandButton 
-                                    id="btnBuscar"
-                                    value="Buscar" 
-                                    actionListener="#{gestionarUsuariosBean.buscar()}"
-                                    process="filtroPanel"
-                                    update="usuarioTable filtroPanel"
-                                    icon="fa fa-search"
-                                    onclick="PF('usuarioTableWV').getPaginator().setPage(0);" />
+                                <p:commandButton
+                                        id="btnBuscar"
+                                        value="Buscar"
+                                        actionListener="#{gestionarUsuariosBean.buscar()}"
+                                        process="filtroPanel"
+                                        update="usuarioTable filtroPanel"
+                                        icon="fa fa-search"
+                                        onclick="PF('usuarioTableWV').getPaginator().setPage(0);"/>
                             </f:facet>
 
                         </p:panelGrid>
@@ -98,13 +111,14 @@
 
                         <p:commandButton id="nuevoUsuarioBtn"
                                          value="Nuevo Usuario"
-                                         ajax="false" 
+                                         ajax="false"
                                          action="#{gestionarUsuariosBean.irEditar(null)}"
                                          style="width: auto; margin-bottom: 10px;"
                                          icon="fa fa-plus"
-                                         immediate="true" />
+                                         immediate="true"/>
 
-                        <p:dataTable id="usuarioTable" var="u" value="#{gestionarUsuariosBean.usuariosDTO}" paginatorAlwaysVisible="false"
+                        <p:dataTable id="usuarioTable" var="u" value="#{gestionarUsuariosBean.usuariosDTO}"
+                                     paginatorAlwaysVisible="false"
                                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginatorPosition="bottom" paginator="true" rows="15"
                                      widgetVar="usuarioTableWV"
@@ -117,74 +131,74 @@
                             </p:column>
 
                             <p:column headerText="NOMBRES">
-                                <h:outputText value="#{u.nombres}" />
+                                <h:outputText value="#{u.nombres}"/>
                             </p:column>
 
                             <p:column headerText="AP. PATERNO">
-                                <h:outputText value="#{u.apPaterno}" />
+                                <h:outputText value="#{u.apPaterno}"/>
                             </p:column>
 
                             <p:column headerText="AP. MATERNO">
-                                <h:outputText value="#{u.apMaterno}" />
+                                <h:outputText value="#{u.apMaterno}"/>
                             </p:column>
 
                             <p:column headerText="F. NACIMIENTO">
-                                <h:outputText value="#{u.fechaNacimiento}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                <h:outputText value="#{u.fechaNacimiento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
                                 </h:outputText>
                             </p:column>
 
                             <p:column headerText="EMAIL">
-                                <h:outputText value="#{u.email}" />
+                                <h:outputText value="#{u.email}"/>
                             </p:column>
 
                             <p:column headerText="PERFIL">
-                                <h:outputText value="#{u.perfil.nombre}" />
+                                <h:outputText value="#{u.perfil.nombre}"/>
                             </p:column>
 
                             <p:column headerText="HAB.">
-                                <h:outputText value="#{u.habilitado == true ? 'Sí' : 'No'}" />
+                                <h:outputText value="#{u.habilitado == true ? 'Sí' : 'No'}"/>
                             </p:column>
 
                             <p:column headerText="ACCIONES">
 
-                                <p:splitButton id="btnEditar" value="Editar" 
-                                               action="#{gestionarUsuariosBean.irEditar(u)}" 
+                                <p:splitButton id="btnEditar" value="Editar"
+                                               action="#{gestionarUsuariosBean.irEditar(u)}"
                                                ajax="false" immediate="true"
-                                               icon="fa fa-fw fa-lg fa-edit"  >
+                                               icon="fa fa-fw fa-lg fa-edit">
 
                                     <p:menuitem>
-                                        <p:commandButton id="btnEliminar" value="Eliminar" 
-                                                         actionListener="#{gestionarUsuariosBean.eliminar(u)}"   
+                                        <p:commandButton id="btnEliminar" value="Eliminar"
+                                                         actionListener="#{gestionarUsuariosBean.eliminar(u)}"
                                                          process="@this" update="usuarioTable"
                                                          icon="fa fa-fw fa-lg fa-remove">
-                                            <p:confirm header="Eliminar Usuario" 
-                                                       message="¿Esta seguro que desea eliminar el usuario?" 
-                                                       icon="ui-icon-alert" />
+                                            <p:confirm header="Eliminar Usuario"
+                                                       message="¿Esta seguro que desea eliminar el usuario?"
+                                                       icon="ui-icon-alert"/>
                                         </p:commandButton>
                                     </p:menuitem>
 
                                     <p:menuitem rendered="#{!u.habilitado}">
-                                        <p:commandButton id="btnHabilitar" value="Habilitar" 
-                                                         actionListener="#{gestionarUsuariosBean.habilitar(u)}"   
+                                        <p:commandButton id="btnHabilitar" value="Habilitar"
+                                                         actionListener="#{gestionarUsuariosBean.habilitar(u)}"
                                                          process="@this" update="usuarioTable"
                                                          icon="fa fa-fw fa-lg fa-key">
-                                            <p:confirm header="Habilitar Usuario" 
-                                                       message="¿Esta seguro que desea habilitar al usuario?" 
-                                                       icon="ui-icon-alert" />
+                                            <p:confirm header="Habilitar Usuario"
+                                                       message="¿Esta seguro que desea habilitar al usuario?"
+                                                       icon="ui-icon-alert"/>
                                         </p:commandButton>
-                                    </p:menuitem> 
+                                    </p:menuitem>
 
                                     <p:menuitem rendered="#{u.habilitado}">
-                                        <p:commandButton value="Deshabilitar" 
-                                                         actionListener="#{gestionarUsuariosBean.deshabilitar(u)}"   
+                                        <p:commandButton value="Deshabilitar"
+                                                         actionListener="#{gestionarUsuariosBean.deshabilitar(u)}"
                                                          process="@this" update="usuarioTable"
                                                          icon="fa fa-fw fa-lg fa-ban">
-                                            <p:confirm header="Deshabilitar Usuario" 
-                                                       message="¿Esta seguro que desea deshabilitar al usuario?" 
-                                                       icon="ui-icon-alert" />
+                                            <p:confirm header="Deshabilitar Usuario"
+                                                       message="¿Esta seguro que desea deshabilitar al usuario?"
+                                                       icon="ui-icon-alert"/>
                                         </p:commandButton>
-                                    </p:menuitem> 
+                                    </p:menuitem>
 
                                 </p:splitButton>
 
