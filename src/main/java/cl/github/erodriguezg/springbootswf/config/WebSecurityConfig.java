@@ -9,10 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.*;
 
 import javax.servlet.Filter;
 
@@ -45,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().permitAll()
                     .and()
                 .formLogin()
-                    .permitAll()
                     .and()
                 .logout()
                     .logoutSuccessUrl(INICIO_URL)
@@ -70,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setUsernameParameter("j_username");
         filter.setPasswordParameter("j_password");
         filter.setAuthenticationManager(authenticationManager);
-        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler(INICIO_URL));
+        filter.setAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler());
         filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(LOGIN_URL));
         return filter;
     }
