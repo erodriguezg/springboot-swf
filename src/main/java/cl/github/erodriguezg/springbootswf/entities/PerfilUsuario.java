@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "perfil_usuario")
 @NamedQueries({
-        @NamedQuery(name = "PerfilUsuario.findAll", query = "SELECT p FROM PerfilUsuario p")
+        @NamedQuery(name = "PerfilUsuario.findAll", query = "SELECT p FROM PerfilUsuario p order by nombre asc ")
         , @NamedQuery(name = "PerfilUsuario.findByIdPerfilUsuario", query = "SELECT p FROM PerfilUsuario p WHERE p.idPerfilUsuario = :idPerfilUsuario")
         , @NamedQuery(name = "PerfilUsuario.findByNombre", query = "SELECT p FROM PerfilUsuario p WHERE p.nombre = :nombre")})
 public class PerfilUsuario implements Serializable {

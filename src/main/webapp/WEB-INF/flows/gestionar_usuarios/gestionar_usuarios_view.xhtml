@@ -20,33 +20,47 @@
                             <h:panelGroup>
                                 <p:inputText id="rut" value="#{gestionarUsuariosBean.usuarioFilterDto.run}"
                                              converter="#{rutConverter}" styleClass="validaRut">
+                                    <p:ajax event="keyup" process="@this" update="filtroPanel usuarioTable" delay="300"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
                                 </p:inputText>
                                 <p:message id="rutMsg" for="rut" display="text"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Nombre: " for="nombre"/>
                             <h:panelGroup>
-                                <p:inputText id="nombre" value="#{gestionarUsuariosBean.usuarioFilterDto.nombres}"/>
+                                <p:inputText id="nombre" value="#{gestionarUsuariosBean.usuarioFilterDto.nombres}">
+                                    <p:ajax event="keyup" process="@this" update="filtroPanel usuarioTable" delay="300"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:inputText>
                                 <p:message id="nombreMsg" for="nombre"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Apellidos Paterno: " for="apPaterno"/>
                             <h:panelGroup>
                                 <p:inputText id="apPaterno"
-                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apPaterno}"/>
+                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apPaterno}">
+                                    <p:ajax event="keyup" process="@this" update="filtroPanel usuarioTable" delay="300"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:inputText>
                                 <p:message id="apPaternoMsg" for="apPaterno"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Apellidos Materno: " for="apMaterno"/>
                             <h:panelGroup>
                                 <p:inputText id="apMaterno"
-                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apMaterno}"/>
+                                             value="#{gestionarUsuariosBean.usuarioFilterDto.apMaterno}">
+                                    <p:ajax event="keyup" process="@this" update="filtroPanel usuarioTable" delay="300"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:inputText>
                                 <p:message id="apMaternoMsg" for="apMaterno"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Email: " for="email"/>
                             <h:panelGroup>
-                                <p:inputText id="email" value="#{gestionarUsuariosBean.usuarioFilterDto.email}"/>
+                                <p:inputText id="email" value="#{gestionarUsuariosBean.usuarioFilterDto.email}">
+                                    <p:ajax event="keyup" process="@this" update="filtroPanel usuarioTable" delay="300"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:inputText>
                                 <p:message id="emailMsg" for="email"/>
                             </h:panelGroup>
 
@@ -58,6 +72,8 @@
                                     <f:selectItem itemLabel=" "/>
                                     <f:selectItems value="#{perfilBean.traerTodos}"
                                                    var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
+                                    <p:ajax event="change" process="@this" update="filtroPanel usuarioTable"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
                                 </p:selectOneMenu>
                                 <p:message id="perfilMsg" for="perfil"/>
                             </h:panelGroup>
@@ -67,7 +83,10 @@
                                 <p:calendar id="fechaMaxima"
                                             value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoSuperior}"
                                             locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
-                                            showOn="button"/>
+                                            showOn="button">
+                                    <p:ajax event="dateSelect" process="@this" update="filtroPanel usuarioTable"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:calendar>
                                 <p:message id="fechaMaximaMsg" for="fechaMaxima"/>
                             </h:panelGroup>
 
@@ -76,7 +95,10 @@
                                 <p:calendar id="fechaMinima"
                                             value="#{gestionarUsuariosBean.usuarioFilterDto.fechaNacimientoInferior}"
                                             locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
-                                            showOn="button"/>
+                                            showOn="button">
+                                    <p:ajax event="dateSelect" process="@this" update="filtroPanel usuarioTable"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                </p:calendar>
                                 <p:message id="fechaMinimaMsg" for="fechaMinima" display="icon"/>
                             </h:panelGroup>
 
@@ -87,20 +109,11 @@
                                     <f:selectItem itemLabel=""/>
                                     <f:selectItem itemLabel="Sí" itemValue="#{true}"/>
                                     <f:selectItem itemLabel="No" itemValue="#{false}"/>
+                                    <p:ajax event="change" process="@this" update="filtroPanel usuarioTable"
+                                            listener="#{gestionarUsuariosBean.buscar}" />
                                 </p:selectOneMenu>
                                 <p:message id="habilitadoMsg" for="habilitado"/>
                             </h:panelGroup>
-
-                            <f:facet name="footer">
-                                <p:commandButton
-                                        id="btnBuscar"
-                                        value="Buscar"
-                                        actionListener="#{gestionarUsuariosBean.buscar()}"
-                                        process="filtroPanel"
-                                        update="usuarioTable filtroPanel"
-                                        icon="fa fa-search"
-                                        onclick="PF('usuarioTableWV').getPaginator().setPage(0);"/>
-                            </f:facet>
 
                         </p:panelGrid>
                     </div>
