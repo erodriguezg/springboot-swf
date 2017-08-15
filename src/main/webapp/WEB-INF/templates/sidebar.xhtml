@@ -7,42 +7,44 @@
         xmlns:po="http://primefaces.org/omega">
 
     <div class="sidebar">
-        <div class="nano">
-            <div class="nano-content sidebar-scroll-content">
-                <div class="logo">
-                    <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
-                </div>
-
-                <ui:fragment rendered="#{not identidad.loggedIn}">
-                    <div class="profile">
-                        <a href="#{request.contextPath}/login.xhtml">
-                            <span>Iniciar Sesión</span>
-                            <i class="fa fa-fw fa-sign-in"></i>
-                        </a>
+        <h:form id="sidemenu-form">
+            <div class="nano">
+                <div class="nano-content sidebar-scroll-content">
+                    <div class="logo">
+                        <p:graphicImage name="images/logo.png" library="omega-layout" width="113"/>
                     </div>
-                </ui:fragment>
 
-                <ui:fragment rendered="#{identidad.loggedIn}">
-                    <div class="profile">
-                        <p:graphicImage name="images/profile.png" library="omega-layout"/>
-                        <a id="profile-button" href="#">
-                            <span class="username">#{identidad.nombrePersona}</span>
-                            <i class="fa fa-fw fa-cog"></i>
-                        </a>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Cuenta</span></a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notificaciones</span><span
-                                    class="menu-badge">2</span></a></li>
-                            <li><a href="#{request.contextPath}/logout"><i
-                                    class="fa fa-fw fa-sign-out"></i><span>Cerrar Sesión</span></a></li>
-                        </ul>
-                    </div>
-                </ui:fragment>
+                    <ui:fragment rendered="#{not identidad.loggedIn}">
+                        <div class="profile">
+                            <a href="#{request.contextPath}/login.xhtml">
+                                <span>Iniciar Sesión</span>
+                                <i class="fa fa-fw fa-sign-in"></i>
+                            </a>
+                        </div>
+                    </ui:fragment>
 
-                <div class="menu">
-                    <h:form id="sidemenu-form">
+                    <ui:fragment rendered="#{identidad.loggedIn}">
+                        <div class="profile">
+                            <p:graphicImage name="images/profile.png" library="omega-layout"/>
+                            <a id="profile-button" href="#">
+                                <span class="username">#{identidad.nombrePersona}</span>
+                                <i class="fa fa-fw fa-cog"></i>
+                            </a>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-fw fa-sliders"></i><span>Cuenta</span></a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-bell"></i><span>Notificaciones</span><span
+                                        class="menu-badge">2</span></a></li>
+                                <li>
+                                    <a href="#{request.contextPath}/logout">
+                                        <i class="fa fa-fw fa-sign-out"></i><span>Cerrar Sesión</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </ui:fragment>
+
+                    <div class="menu">
                         <po:menu>
-
                             <p:menuitem id="om_inicio" value="Inicio" icon="fa fa-home" url="/inicio.xhtml"/>
                             <p:menuitem id="om_gestionar_usuarios" value="Gestionar Usuarios" icon="fa fa-users"
                                         url="/ui/gestionar_usuarios"/>
@@ -87,10 +89,10 @@
 
                             <p:menuitem id="om_doc" value="Documentation" icon="fa fa-book"/>
                         </po:menu>
-                    </h:form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </h:form>
     </div>
 
 </ui:composition>

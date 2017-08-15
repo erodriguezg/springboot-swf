@@ -15,11 +15,12 @@
         <title>PrimeFaces Omega</title>
         <h:outputScript name="js/primefaces.spanish.locale.js" library="app" />
         <h:outputScript name="js/jquery.Rut.js" library="app" />
+        <h:outputScript name="js/csrf.js" library="app" />
         <h:outputScript name="js/general.js" library="app" />
     </h:head>
 
     <h:body styleClass="login-body">
-        
+
         <f:metadata>
             <f:event type="preRenderView" listener="#{loginBean.verificarErroresLogin()}"/>
         </f:metadata>
@@ -62,6 +63,7 @@
 
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
         <ui:include src="/WEB-INF/templates/includes/funciones_javascript_globales.xhtml" />
+        <ui:include src="/WEB-INF/templates/includes/csrf.xhtml" />
 
     </h:body>
 

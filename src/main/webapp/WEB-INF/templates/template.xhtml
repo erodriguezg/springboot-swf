@@ -17,6 +17,7 @@
         <h:outputScript name="js/layout.js" library="omega-layout" />
         <h:outputScript name="js/primefaces.spanish.locale.js" library="app" />
         <h:outputScript name="js/jquery.Rut.js" library="app" />
+        <h:outputScript name="js/csrf.js" library="app" />
         <h:outputScript name="js/general.js" library="app" />
         <ui:insert name="head"/>
     </h:head>
@@ -33,7 +34,7 @@
 
             <ui:include src="footer.xhtml" />
         </div>
-        
+
         <h:outputStylesheet name="css/animate.css" library="omega-layout" />
         <h:outputStylesheet name="css/nanoscroller.css" library="omega-layout" />
         <h:outputStylesheet name="css/layout.css" library="omega-layout" />
@@ -41,6 +42,7 @@
         <ui:include src="/WEB-INF/templates/includes/mensajes_globales.xhtml" />
         <ui:include src="/WEB-INF/templates/includes/idleMonitor.xhtml" />
         <ui:include src="/WEB-INF/templates/includes/funciones_javascript_globales.xhtml" />
+        <ui:include src="/WEB-INF/templates/includes/csrf.xhtml" />
         <p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"/>
     </h:body>
 
