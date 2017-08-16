@@ -1,19 +1,21 @@
 package com.github.erodriguezg.springbootswf.managedbeans;
 
-import com.github.erodriguezg.springbootswf.entities.Usuario;
-import com.github.erodriguezg.springbootswf.exceptions.LogicaNegocioException;
-import com.github.erodriguezg.springbootswf.services.UsuarioService;
-import com.github.erodriguezg.springbootswf.utils.ConstantesUtil;
 import com.github.erodriguezg.beanvalidationutils.annotations.Password;
 import com.github.erodriguezg.jsfutils.utils.JsfUtils;
+import com.github.erodriguezg.springbootswf.exceptions.LogicaNegocioException;
+import com.github.erodriguezg.springbootswf.services.UsuarioService;
+import com.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
+import com.github.erodriguezg.springbootswf.utils.ConstantesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import java.io.Serializable;
 
 /**
@@ -24,12 +26,12 @@ public class EditarUsuarioBean implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(EditarUsuarioBean.class);
 
     @Autowired
-    private UsuarioService usuarioService;
+    private transient UsuarioService usuarioService;
 
     @Autowired
-    private JsfUtils jsfUtils;
+    private transient JsfUtils jsfUtils;
 
-    private Usuario usuario;
+    private UsuarioDto usuarioDto;
 
     @Password
     private String password;
@@ -47,15 +49,15 @@ public class EditarUsuarioBean implements Serializable {
         LOG.info("pre-destroy - EditarUsuarioBean");
     }
 
-    public void iniciar(Usuario usuario) {
-        if (usuario == null) {
+    public void iniciar(UsuarioDto usuarioDto) {
+        if (usuarioDto == null) {
             modoEditar = false;
-            this.usuario = new Usuario();
+            this.usuarioDto = new UsuarioDto();
             this.rutInicial = null;
         } else {
             modoEditar = true;
-            this.usuario = usuario;
-            //this.rutInicial = usuario.getRut();
+            this.usuarioDto = usuarioDto;
+            this.rutInicial = usuarioDto.getRut();
         }
     }
 
@@ -65,8 +67,8 @@ public class EditarUsuarioBean implements Serializable {
                 jsfUtils.addErrorMessage("formUsuario:password", "La contraseña no corresponde a la confirmación");
                 return null;
             }
-            usuario.setPassword(password);
-            //usuarioService.guardarUsuario(this.usuario);
+            usuarioDto.setPassword(password);
+            usuarioService.guardarUsuario(this.usuarioDto);
             jsfUtils.addInfoMessage(ConstantesUtil.MSJ_EXITO);
             return "exito";
         } catch (LogicaNegocioException ex) {
@@ -76,20 +78,20 @@ public class EditarUsuarioBean implements Serializable {
             LOG.error("error guardar", ex);
             jsfUtils.addErrorMessage(ConstantesUtil.MSJ_ERROR_INTERNO);
         }
-        usuario.setPassword(null);
+        usuarioDto.setPassword(null);
         return null;
     }
 
     public void validarRut(FacesContext facesContext, UIComponent component, Object value) {
-   /*     if (value == null) {
+        if (value == null) {
             return;
         }
         Integer rutAValidar = (Integer) value;
-        Usuario usuarioExistente = usuarioService.traerPorRutConPerfil(rutAValidar);
-        if (usuarioExistente != null && usuarioExistente.getRut().equals(rutAValidar) && !rutAValidar.equals(this.rutInicial)) {
-            FacesMessage msg = jsfUtils.createErrorMessage("El RUT se encuentra ocupado");
+        UsuarioDto usuarioDtoExistente = usuarioService.traerPorRun(rutAValidar);
+        if (usuarioDtoExistente != null && usuarioDtoExistente.getRut().equals(rutAValidar) && !rutAValidar.equals(this.rutInicial)) {
+            FacesMessage msg = jsfUtils.createErrorMessage("El RUN se encuentra ocupado");
             throw new ValidatorException(msg);
-        }*/
+        }
     }
 
     public boolean confirmacionPasswordValida() {
@@ -103,8 +105,9 @@ public class EditarUsuarioBean implements Serializable {
     }
 
     //getters and Setters
-    public Usuario getUsuario() {
-        return usuario;
+
+    public UsuarioDto getUsuarioDto() {
+        return usuarioDto;
     }
 
     public String getPassword() {

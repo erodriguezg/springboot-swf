@@ -1,7 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/template.xhtml">
 
@@ -22,10 +22,10 @@
 
                             <p:outputLabel value="RUT: " for="rut"/>
                             <h:panelGroup>
-                                <h:outputText value="#{editarUsuarioBean.usuario.rut}"
+                                <h:outputText value="#{editarUsuarioBean.usuarioDto.rut}"
                                               rendered="#{editarUsuarioBean.modoEditar}" converter="#{rutConverter}">
                                 </h:outputText>
-                                <p:inputText id="rut" value="#{editarUsuarioBean.usuario.rut}"
+                                <p:inputText id="rut" value="#{editarUsuarioBean.usuarioDto.rut}"
                                              styleClass="validaRut"
                                              required="true" converter="#{rutConverter}"
                                              validator="#{editarUsuarioBean.validarRut}"
@@ -38,7 +38,7 @@
                             <p:outputLabel value="Perfil: " for="perfil"/>
                             <h:panelGroup>
                                 <p:selectOneMenu id="perfil"
-                                                 value="#{editarUsuarioBean.usuario.perfil}"
+                                                 value="#{editarUsuarioBean.usuarioDto.perfil}"
                                                  required="true"
                                                  converter="#{jsonConverter}">
                                     <f:selectItem itemLabel=" "/>
@@ -50,7 +50,7 @@
 
                             <p:outputLabel value="Fecha Nacimiento: " for="fecha"/>
                             <h:panelGroup>
-                                <p:calendar id="fecha" value="#{editarUsuarioBean.usuario.fechaNacimiento}"
+                                <p:calendar id="fecha" value="#{editarUsuarioBean.usuarioDto.fechaNacimiento}"
                                             readonlyInput="true"
                                             locale="es" navigator="true" pattern="dd/MM/yyyy" yearRange="-100:+0"
                                             showOn="button"/>
@@ -59,21 +59,26 @@
 
                             <p:outputLabel value="Nombres: " for="nombres"/>
                             <h:panelGroup>
-                                <p:inputText id="nombres" value="#{editarUsuarioBean.usuario.nombres}"
+                                <p:inputText id="nombres" value="#{editarUsuarioBean.usuarioDto.nombres}"
                                              required="true"/>
                                 <p:message id="nombresMsg" for="nombres" display="text"/>
                             </h:panelGroup>
 
-                            <p:outputLabel value="Apellidos: " for="apellidos"/>
+                            <p:outputLabel value="Apellido Paterno: " for="apPaterno"/>
                             <h:panelGroup>
-                                <p:inputText id="apellidos" value="#{editarUsuarioBean.usuario.apellidos}"
-                                             required="true"/>
-                                <p:message id="apellidosMsg" for="apellidos" display="text"/>
+                                <p:inputText id="apPaterno" value="#{editarUsuarioBean.usuarioDto.apPaterno}" required="true"/>
+                                <p:message id="msgApPaterno" for="apPaterno" display="text"/>
+                            </h:panelGroup>
+
+                            <p:outputLabel value="Apellido Materno: " for="apMaterno"/>
+                            <h:panelGroup>
+                                <p:inputText id="apMaterno" value="#{editarUsuarioBean.usuarioDto.apMaterno}" required="true"/>
+                                <p:message id="msgApMaterno" for="apMaterno" display="text"/>
                             </h:panelGroup>
 
                             <p:outputLabel value="Correo eletronico: " for="email"/>
                             <h:panelGroup>
-                                <p:inputText id="email" value="#{editarUsuarioBean.usuario.email}"/>
+                                <p:inputText id="email" value="#{editarUsuarioBean.usuarioDto.email}"/>
                                 <p:message id="emailMsg" for="email" display="text"/>
                             </h:panelGroup>
 

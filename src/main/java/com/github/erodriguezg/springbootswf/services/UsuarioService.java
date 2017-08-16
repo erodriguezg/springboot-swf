@@ -22,4 +22,5 @@ public interface UsuarioService {
 
     void deshabilitar(UsuarioDto usuario, Long idUsuarioActual);
 
+    UsuarioDto traerPorRun(Integer run);
 }

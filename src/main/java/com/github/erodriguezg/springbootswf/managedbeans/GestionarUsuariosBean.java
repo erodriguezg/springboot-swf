@@ -22,15 +22,15 @@ public class GestionarUsuariosBean implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(GestionarUsuariosBean.class);
 
     @Autowired
-    private UsuarioService usuarioService;
+    private transient UsuarioService usuarioService;
 
     @Autowired
-    private Identidad identidad;
+    private transient Identidad identidad;
 
     @Autowired
-    private JsfUtils jsfUtils;
+    private transient JsfUtils jsfUtils;
 
-    private Usuario usuarioSelected;
+    private UsuarioDto usuarioSelected;
     private List<UsuarioDto> usuariosDTO;
     private UsuarioFiltroDto usuarioFilterDto;
 
@@ -54,7 +54,7 @@ public class GestionarUsuariosBean implements Serializable {
         this.usuariosDTO = usuarioService.buscar(usuarioFilterDto);
     }
 
-    public String irEditar(Usuario usuario) {
+    public String irEditar(UsuarioDto usuario) {
         LOG.debug("ir a editar");
         if (usuario == null) {
             this.usuarioSelected = null;
@@ -124,12 +124,7 @@ public class GestionarUsuariosBean implements Serializable {
         this.usuariosDTO = usuariosDTO;
     }
 
-    public Usuario getUsuarioSelected() {
+    public UsuarioDto getUsuarioSelected() {
         return usuarioSelected;
     }
-
-    public void setUsuarioSelected(Usuario usuarioSelected) {
-        this.usuarioSelected = usuarioSelected;
-    }
-
 }

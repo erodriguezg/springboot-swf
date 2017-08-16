@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
+        @NamedQuery(name = "Usuario.findByRun", query = "select u from Usuario u inner join u.persona p where p.run = :run "),
         @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
         , @NamedQuery(name = "Usuario.findByIdPersona", query = "SELECT u FROM Usuario u WHERE u.idPersona = :idPersona")
         , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")

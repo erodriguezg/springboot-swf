@@ -92,4 +92,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setHabilitado(false);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public UsuarioDto traerPorRun(Integer run) {
+        Usuario usuario = this.usuarioDao.traerPorRun(run);
+        return usuarioMapper.toUsuarioDto(usuario);
+    }
+
 }

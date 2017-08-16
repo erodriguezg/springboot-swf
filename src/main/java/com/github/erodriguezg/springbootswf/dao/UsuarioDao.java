@@ -60,6 +60,16 @@ public class UsuarioDao {
         return jpaUtils.queryForList(query, parametros, Usuario.class);
     }
 
+    public Usuario traerPorRun(Integer run) {
+        return jpaUtils.resultForOneObject(
+                em.createNamedQuery("Usuario.findByRun", Usuario.class)
+                    .setParameter("run", run)
+        );
+    }
+
+    /*
+    PRIVADOS
+     */
 
     private void queryBuscarCondicionNombres(StringBuilder query, Map<String, Object> parametros, UsuarioFiltroDto usuarioFilterDto) {
         if (usuarioFilterDto.getNombres() != null && !usuarioFilterDto.getNombres().isEmpty()) {
