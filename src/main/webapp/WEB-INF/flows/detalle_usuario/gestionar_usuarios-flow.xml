@@ -6,7 +6,7 @@
       	http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd"
       start-state="iniciar_editar">
 
-    <var name="editarUsuarioBean" class="cl.github.erodriguezg.springbootswf.managedbeans.EditarUsuarioBean" />
+    <var name="editarUsuarioBean" class="com.github.erodriguezg.springbootswf.managedbeans.EditarUsuarioBean" />
 
     <input name="usuario" value="flowScope.usuarioSelected" required="false" />
         

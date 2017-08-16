@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow.xsd"
       start-state="iniciar_gestionar">
 
-    <var name="gestionarUsuariosBean" class="cl.github.erodriguezg.springbootswf.managedbeans.GestionarUsuariosBean"/>
+    <var name="gestionarUsuariosBean" class="com.github.erodriguezg.springbootswf.managedbeans.GestionarUsuariosBean"/>
 
     <action-state id="iniciar_gestionar">
         <evaluate expression="gestionarUsuariosBean.iniciar()"/>
