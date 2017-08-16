@@ -10,8 +10,8 @@ $(function () {
         return true;
     });
 
-    //caso ajax primefaces
-    $(document).on("pfAjaxSend", function(event, xhr, options) {
+    //caso ajax
+    $.ajaxPrefilter(function( options, originalOptions, xhr ) {
         var csrfHiddenTokenElement = $("#" + idCSRFToken);
         var csrfHiddenHeaderElement = $("#" + idCSRFHeader);
         xhr.setRequestHeader(csrfHiddenHeaderElement.val(), csrfHiddenTokenElement.val());

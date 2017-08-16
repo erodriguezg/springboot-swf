@@ -110,7 +110,7 @@
                                     <f:selectItem itemLabel="Sí" itemValue="#{true}"/>
                                     <f:selectItem itemLabel="No" itemValue="#{false}"/>
                                     <p:ajax event="change" process="@this" update="filtroPanel usuarioTable"
-                                            listener="#{gestionarUsuariosBean.buscar}" />
+                                            listener="#{gestionarUsuariosBean.buscar}" global="false"/>
                                 </p:selectOneMenu>
                                 <p:message id="habilitadoMsg" for="habilitado"/>
                             </h:panelGroup>
