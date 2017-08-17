@@ -22,14 +22,18 @@ public class Usuario implements Serializable {
     @Id
     @Column(name = "id_persona")
     private Long idPersona;
+
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
+
     @JoinColumn(name = "id_perfil_usuario", referencedColumnName = "id_perfil_usuario")
     @ManyToOne(optional = false)
     private PerfilUsuario idPerfilUsuario;
+
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Persona persona;

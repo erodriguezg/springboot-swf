@@ -1,13 +1,12 @@
 package com.github.erodriguezg.springbootswf.managedbeans;
 
-import com.github.erodriguezg.springbootswf.entities.Usuario;
+import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import com.github.erodriguezg.springbootswf.exceptions.LogicaNegocioException;
 import com.github.erodriguezg.springbootswf.security.Identidad;
 import com.github.erodriguezg.springbootswf.services.UsuarioService;
 import com.github.erodriguezg.springbootswf.services.dto.UsuarioDto;
 import com.github.erodriguezg.springbootswf.services.dto.UsuarioFiltroDto;
 import com.github.erodriguezg.springbootswf.utils.ConstantesUtil;
-import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,4 +126,6 @@ public class GestionarUsuariosBean implements Serializable {
     public UsuarioDto getUsuarioSelected() {
         return usuarioSelected;
     }
+
+
 }

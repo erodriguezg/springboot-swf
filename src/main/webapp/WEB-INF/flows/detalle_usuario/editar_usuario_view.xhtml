@@ -20,6 +20,16 @@
                         <h1>Datos personales</h1>
                         <p:panelGrid id="formPanel" columns="1" layout="grid" styleClass="ui-panelgrid-blank grid-pad">
 
+                            <p:outputLabel value="Username: " for="username"/>
+                            <h:panelGroup>
+                                <h:outputText value="#{editarUsuarioBean.usuarioDto.username}" rendered="#{editarUsuarioBean.modoEditar}" />
+                                <p:inputText id="username" value="#{editarUsuarioBean.usuarioDto.username}"
+                                             required="true" rendered="#{!editarUsuarioBean.modoEditar}">
+                                    <p:ajax process="username" update="username usernamemsg" event="blur"/>
+                                </p:inputText>
+                                <p:message id="usernamemsg" for="username" display="text"/>
+                            </h:panelGroup>
+
                             <p:outputLabel value="RUT: " for="rut"/>
                             <h:panelGroup>
                                 <h:outputText value="#{editarUsuarioBean.usuarioDto.rut}"

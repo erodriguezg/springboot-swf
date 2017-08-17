@@ -13,6 +13,8 @@ public class UsuarioDto implements Serializable {
 
     private Long id;
 
+    private String username;
+
     private Integer rut;
 
     private String nombres;
@@ -117,6 +119,14 @@ public class UsuarioDto implements Serializable {
 
     public void setApMaterno(String apMaterno) {
         this.apMaterno = apMaterno;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

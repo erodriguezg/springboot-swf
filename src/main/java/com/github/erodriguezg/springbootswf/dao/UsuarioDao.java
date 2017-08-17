@@ -134,4 +134,8 @@ public class UsuarioDao {
         }
     }
 
+    public Usuario traerPorEmail(String email) {
+        return null;
+    }
+
 }

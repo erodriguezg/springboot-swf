@@ -1,6 +1,8 @@
 package com.github.erodriguezg.springbootswf.services.impl;
 
+import com.github.erodriguezg.javautils.CodecUtils;
 import com.github.erodriguezg.springbootswf.dao.UsuarioDao;
+import com.github.erodriguezg.springbootswf.entities.Persona;
 import com.github.erodriguezg.springbootswf.entities.Usuario;
 import com.github.erodriguezg.springbootswf.exceptions.LogicaNegocioException;
 import com.github.erodriguezg.springbootswf.services.UsuarioService;
@@ -36,6 +38,9 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private UsuarioMapper usuarioMapper;
 
+    @Autowired
+    private CodecUtils codecUtils;
+
     @Transactional(readOnly = true)
     @Override
     public List<UsuarioDto> traerTodos() {
@@ -47,7 +52,24 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = false)
     @Override
     public UsuarioDto guardarUsuario(UsuarioDto usuarioDto) {
-        throw new UnsupportedOperationException();
+        LOG.debug("Guardar Usuario RUT: " + usuarioDto.getRut());
+        Usuario usuarioAux = usuarioDao.traerPorEmail(usuarioDto.getEmail());
+        if (usuarioAux != null && usuarioAux.getPersona()!= null  && !usuarioAux.getPersona().getRun().equals(usuarioDto.getRut())) {
+            throw new LogicaNegocioException("Ya existe correo para el usuario");
+        }
+        usuarioAux = usuarioDao.traerPorRun(usuarioDto.getRut());
+        if (usuarioAux == null) {
+            usuarioDto.setHabilitado(true);
+        }
+        if (usuarioAux == null || !usuarioAux.getPassword().equals(usuarioDto.getPassword())) {
+            usuarioDto.setPassword(codecUtils.generarHash(CodecUtils.TypeHash.MD5, usuarioDto.getPassword()));
+        }
+        Usuario usuario = usuarioMapper.toUsuario(usuarioDto);
+        Persona persona = em.merge(usuario.getPersona());
+        usuario.setPersona(persona);
+        usuario.setIdPersona(persona.getIdPersona());
+        usuario = em.merge(usuario);
+        return usuarioMapper.toUsuarioDto(usuario);
     }
 
     @Override

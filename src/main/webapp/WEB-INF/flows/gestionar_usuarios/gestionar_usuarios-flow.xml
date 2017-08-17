@@ -17,9 +17,7 @@
     </action-state>
 
     <view-state id="gestionar_usuarios_view">
-        <transition on="ir_crear" to="editar_usuario_subflow">
-            <set name="gestionarUsuariosBean.usuarioSelected" value="null"/>
-        </transition>
+        <transition on="ir_crear" to="editar_usuario_subflow" />
         <transition on="ir_editar" to="editar_usuario_subflow"/>
         <transition on="salir" to="salir"/>
     </view-state>

@@ -16,4 +16,13 @@ public class PerfilUsuarioMapper {
         return dto;
     }
 
+    public PerfilUsuario toPerfilUsuario(PerfilDto dto) {
+        PerfilUsuario entidad = new PerfilUsuario();
+        if(dto == null) {
+            return null;
+        }
+        entidad.setIdPerfilUsuario(dto.getId());
+        entidad.setNombre(dto.getNombre());
+        return entidad;
+    }
 }
