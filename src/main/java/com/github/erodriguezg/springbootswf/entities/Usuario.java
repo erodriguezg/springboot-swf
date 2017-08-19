@@ -20,13 +20,13 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 7439126925283605347L;
 
     @Id
-    @Column(name = "id_persona")
     private Long idPersona;
 
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
 
+    @Basic(optional = false)
     @Column(name = "password")
     private String password;
 
@@ -34,10 +34,12 @@ public class Usuario implements Serializable {
     @ManyToOne(optional = false)
     private PerfilUsuario idPerfilUsuario;
 
-    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
+    @JoinColumn(name = "id_persona")
     @OneToOne(optional = false)
+    @MapsId
     private Persona persona;
 
+    @Basic(optional = false)
     @Column(name = "habilitado")
     private Boolean habilitado;
 
@@ -120,7 +122,6 @@ public class Usuario implements Serializable {
         return "Usuario{" +
                 "idPersona=" + idPersona +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", idPerfilUsuario=" + idPerfilUsuario +
                 ", persona=" + persona +
                 '}';

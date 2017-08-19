@@ -30,7 +30,7 @@ public class PerfilUsuario implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPerfilUsuario")
+    @OneToMany(mappedBy = "idPerfilUsuario")
     private Set<Usuario> usuarioSet;
 
     public PerfilUsuario() {

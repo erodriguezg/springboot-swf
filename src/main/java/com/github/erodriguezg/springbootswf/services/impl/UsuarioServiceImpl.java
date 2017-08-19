@@ -66,9 +66,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         Usuario usuario = usuarioMapper.toUsuario(usuarioDto);
         Persona persona = em.merge(usuario.getPersona());
+        persona.setUsuario(usuario);
         usuario.setPersona(persona);
-        usuario.setIdPersona(persona.getIdPersona());
-        usuario = em.merge(usuario);
+        if(usuarioAux == null) {
+            em.persist(usuario);
+        }else {
+            usuario = em.merge(usuario);
+        }
         return usuarioMapper.toUsuarioDto(usuario);
     }
 
@@ -94,7 +98,10 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new LogicaNegocioException(ConstantesUtil.MSJ_ELIMINAR_A_SI_MISMO);
         }
         Usuario usuario = this.usuarioDao.traerPorId(usuarioDto.getId());
+        Persona persona = usuario.getPersona();
         em.remove(usuario);
+        em.remove(persona);
+
     }
 
     @Transactional(readOnly = false)

@@ -29,26 +29,40 @@ import javax.persistence.*;
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personaSeq")
+    @SequenceGenerator(name = "personaSeq", sequenceName = "persona_id_persona_seq", allocationSize = 1)
     @Basic(optional = false)
     @Column(name = "id_persona")
     private Long idPersona;
+
+    @OneToOne(mappedBy = "persona")
+    private Usuario usuario;
+
+    @Basic(optional = false)
     @Column(name = "run")
     private Integer run;
+
     @Basic(optional = false)
     @Column(name = "nombres")
     private String nombres;
+
     @Basic(optional = false)
     @Column(name = "apellido_paterno")
     private String apellidoPaterno;
+
+    @Basic(optional = false)
     @Column(name = "apellido_materno")
     private String apellidoMaterno;
+
     @Column(name = "fechanacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechanacimiento;
+
     @Column(name = "telefono")
     private String telefono;
+
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
@@ -141,6 +155,14 @@ public class Persona implements Serializable {
 
     public void setComuna(Comuna comuna) {
         this.comuna = comuna;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Transient
