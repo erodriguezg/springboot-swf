@@ -2,6 +2,8 @@ package com.github.erodriguezg.springbootswf.managedbeans;
 
 import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import org.primefaces.model.DualListModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,8 +22,10 @@ import java.util.List;
 @Scope("view")
 public class ShowcaseBean implements Serializable {
 
+    private static final Logger log = LoggerFactory.getLogger(ShowcaseBean.class);
+
     @Autowired
-    private JsfUtils jsfUtils;
+    private transient JsfUtils jsfUtils;
 
     private List<String> lista1;
     private DualListModel<String> cities;
@@ -76,7 +80,7 @@ public class ShowcaseBean implements Serializable {
         try {
             Thread.sleep(5000);
         } catch (Exception ex) {
-
+            log.error("error procesando: ", ex);
         }
     }
 

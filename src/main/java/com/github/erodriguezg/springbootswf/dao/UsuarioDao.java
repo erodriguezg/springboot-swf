@@ -63,7 +63,14 @@ public class UsuarioDao {
     public Usuario traerPorRun(Integer run) {
         return jpaUtils.resultForOneObject(
                 em.createNamedQuery("Usuario.findByRun", Usuario.class)
-                    .setParameter("run", run)
+                        .setParameter("run", run)
+        );
+    }
+
+    public Usuario traerPorEmail(String email) {
+        return jpaUtils.resultForOneObject(
+                em.createNamedQuery("Usuario.findByEmail", Usuario.class)
+                .setParameter("email", email)
         );
     }
 
@@ -132,10 +139,6 @@ public class UsuarioDao {
             query.append("and u.habilitado = :habilitado ");
             parametros.put("habilitado", usuarioFilterDto.getHabilitado());
         }
-    }
-
-    public Usuario traerPorEmail(String email) {
-        return null;
     }
 
 }
