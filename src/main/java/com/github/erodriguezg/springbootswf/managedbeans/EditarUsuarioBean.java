@@ -83,7 +83,7 @@ public class EditarUsuarioBean implements Serializable {
     }
 
     public void validarRut(FacesContext facesContext, UIComponent component, Object value) {
-        if (value == null) {
+        if (facesContext == null || component == null || value == null) {
             return;
         }
         Integer rutAValidar = (Integer) value;
@@ -98,10 +98,7 @@ public class EditarUsuarioBean implements Serializable {
         if (password == null) {
             return true;
         }
-        if (password.equals(passwordConfirmacion)) {
-            return true;
-        }
-        return false;
+        return password.equals(passwordConfirmacion);
     }
 
     //getters and Setters

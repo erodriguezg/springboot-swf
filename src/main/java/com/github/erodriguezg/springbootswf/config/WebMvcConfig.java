@@ -4,7 +4,6 @@ import com.github.erodriguezg.javautils.CodecUtils;
 import com.github.erodriguezg.javautils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -122,13 +121,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return new EmbeddedServletContainerCustomizer() {
-            @Override
-            public void customize(ConfigurableEmbeddedServletContainer container) {
-                container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.xhtml"));
-                container.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/access.xhtml"));
-                container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error.xhtml"));
-            }
+        return container -> {
+            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.xhtml"));
+            container.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/access.xhtml"));
+            container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error.xhtml"));
         };
     }
 
