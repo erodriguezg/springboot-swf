@@ -13,11 +13,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.faces.webflow.JsfFlowHandlerAdapter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
+import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
+import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
@@ -36,18 +39,18 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private WebFlowConfig webFlowConfig;
 
     @Bean
-    public FlowHandlerMapping flowHandlerMapping() {
+    public FlowHandlerMapping flowHandlerMapping(FlowDefinitionRegistry flowDefinitionRegistry) {
         FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
         handlerMapping.setOrder(1);
-        handlerMapping.setFlowRegistry(this.webFlowConfig.flowRegistry());
+        handlerMapping.setFlowRegistry(flowDefinitionRegistry);
         handlerMapping.setDefaultHandler(new UrlFilenameViewController());
         return handlerMapping;
     }
 
     @Bean
-    public FlowHandlerAdapter flowHandlerAdapter() {
+    public FlowHandlerAdapter flowHandlerAdapter(FlowExecutor flowExecutor) {
         JsfFlowHandlerAdapter handlerAdapter = new JsfFlowHandlerAdapter();
-        handlerAdapter.setFlowExecutor(this.webFlowConfig.flowExecutor());
+        handlerAdapter.setFlowExecutor(flowExecutor);
         handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
         return handlerAdapter;
     }
@@ -55,6 +58,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean
     public SimpleControllerHandlerAdapter simpleControllerHandlerAdapter() {
         return new SimpleControllerHandlerAdapter();
+    }
+
+    @Bean
+    public CommonsMultipartResolver filterMultipartResolver() {
+        CommonsMultipartResolver filterMultipartResolver = new CommonsMultipartResolver();
+        filterMultipartResolver.setMaxUploadSize(20971520);
+        return filterMultipartResolver;
     }
 
     /*
@@ -92,7 +102,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new org.tuckey.web.filters.urlrewrite.UrlRewriteFilter());
         registration.addUrlPatterns("/*");
-        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST));
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
+                DispatcherType.INCLUDE, DispatcherType.ASYNC, DispatcherType.ERROR));
         registration.setName("urlRewriteFilter");
         registration.setOrder(1);
         return registration;
@@ -103,7 +114,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new com.github.erodriguezg.jsfutils.support.ViewExpiredFilter());
         registration.addUrlPatterns("/*");
-        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST));
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
+                DispatcherType.INCLUDE, DispatcherType.ASYNC, DispatcherType.ERROR));
         registration.setName("viewExpiredFilter");
         registration.setOrder(2);
         return registration;
@@ -114,6 +126,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new org.primefaces.webapp.filter.FileUploadFilter());
         registration.addServletNames(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME);
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
+                DispatcherType.INCLUDE, DispatcherType.ASYNC, DispatcherType.ERROR));
         registration.setName("primefacesFileuploadFilter");
         registration.setOrder(3);
         return registration;

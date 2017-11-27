@@ -7,9 +7,14 @@ import com.github.erodriguezg.jsfutils.utils.JsfUtils;
 import com.github.erodriguezg.jsfutils.utils.PrimefacesUtils;
 import com.github.erodriguezg.jsfutils.utils.impl.JsfUtilsImpl;
 import com.github.erodriguezg.jsfutils.utils.impl.PrimefacesUtilsImpl;
+import com.github.erodriguezg.springbootswf.utils.ConstantesUtil;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.MultipartConfigElement;
@@ -42,12 +47,11 @@ public class JsfConfig {
             servletContext.setInitParameter("javax.faces.FACELETS_LIBRARIES", "/WEB-INF/primefaces-omega.taglib.xml");
             servletContext.setInitParameter("primefaces.UPLOADER", "commons");
             servletContext.setInitParameter("primefaces.FONT_AWESOME", "true");
-            servletContext.setInitParameter("primefaces.UPLOADER", "commons");
         }
     }
 
     @Configuration
-    @Profile("development")
+    @Profile(ConstantesUtil.SPRING_BOOT_PROFILE_NAME_DEVELOPMENT)
     static class DevelopmentConfigureJSFContextParameters implements ServletContextInitializer {
         @Override
         public void onStartup(ServletContext servletContext) throws ServletException {
@@ -58,7 +62,7 @@ public class JsfConfig {
     }
 
     @Configuration
-    @Profile("production")
+    @Profile(ConstantesUtil.SPRING_BOOT_PROFILE_NAME_PRODUCTION)
     static class ProductionConfigureJSFContextParameters implements ServletContextInitializer {
         @Override
         public void onStartup(ServletContext servletContext) throws ServletException {

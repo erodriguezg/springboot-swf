@@ -4,6 +4,10 @@ package com.github.erodriguezg.springbootswf.utils;
  * Created by eduardo on 03-02-17.
  */
 public class ConstantesUtil {
+
+    public static final String SPRING_BOOT_PROFILE_NAME_DEVELOPMENT = "development";
+    public static final String SPRING_BOOT_PROFILE_NAME_PRODUCTION = "production";
+
     public static final String MSJ_EXITO = "Todos los cambios se realizaron con éxito";
     public static final String MSJ_ERROR_INTERNO = "Ocurrio error interno";
     public static final String MSJ_ERROR_CREDENCIALES_INVALIDAS = "credenciales invalidas!";

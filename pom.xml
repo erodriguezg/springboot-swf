@@ -5,7 +5,7 @@
 
     <groupId>com.github.erodriguezg</groupId>
     <artifactId>springboot-swf</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>war</packaging>
 
     <name>springboot-swf</name>
@@ -19,8 +19,11 @@
     </parent>
 
     <properties>
+        <tomcat.version>8.5.9</tomcat.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <sonar.cpd.exclusions>src/main/java/com/github/erodriguezg/springbootswf/entities/**/*,src/main/java/com/github/erodriguezg/springbootswf/services/dto/**/*</sonar.cpd.exclusions>
 
         <plugin.flyway.version>4.2.0</plugin.flyway.version>
         <plugin.flyway.url>jdbc:postgresql://localhost:5432/springboot-swf</plugin.flyway.url>
@@ -33,11 +36,14 @@
         <version.urlrewrite>4.0.4</version.urlrewrite>
 
         <version.jsf-api>2.2</version.jsf-api>
-        <version.jsf-mojarra>2.2.14</version.jsf-mojarra>
+        <version.jsf-mojarra>2.2.15</version.jsf-mojarra>
         <version.primefaces>6.1</version.primefaces>
-        <version.primefaces-ext>6.0.0</version.primefaces-ext>
+        <version.primefaces-ext>6.1.1</version.primefaces-ext>
         <version.primefaces-omega>1.1.1</version.primefaces-omega>
-        <version.springwebflow>2.4.5.RELEASE</version.springwebflow>
+        <version.springwebflow>2.4.6.RELEASE</version.springwebflow>
+
+        <version.apache-poi>3.12</version.apache-poi>
+        <version.apache-tika>1.16</version.apache-tika>
 
         <version.commons-lang3>3.3.2</version.commons-lang3>
         <version.commons-collections>3.2.1</version.commons-collections>
@@ -199,6 +205,7 @@
         </dependency>
 
         <!-- Apache Commons -->
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -233,6 +240,37 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${version.commons-codec}</version>
+        </dependency>
+
+        <!-- apache poi -->
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${version.apache-poi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${version.apache-poi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>${version.apache-poi}</version>
+        </dependency>
+
+        <!-- apache tika -->
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>${version.apache-tika}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>${version.apache-tika}</version>
         </dependency>
 
         <!-- test -->
@@ -330,6 +368,7 @@
             </plugin>
 
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
 
     <repositories>

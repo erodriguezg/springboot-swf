@@ -26,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_URL = "/login.xhtml";
     private static final String LOGOUT_URL = "/logout";
     private static final String ACCESS_DENIED_URL = "/access.xhtml";
+    public static final String LOGIN_PROCESS_URL = "/login-process";
+    public static final String USERNAME_PARAM_NAME = "j_username";
+    public static final String PASS_PARAM_NAME = "j_password";
 
     @Autowired
     private CustomAuthenticationProvider authProvider;
@@ -53,19 +56,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .accessDeniedPage(ACCESS_DENIED_URL)
                     .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_URL))
                     .and()
-                .addFilterBefore(customUsernamePasswordAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(this.authProvider);
+                .addFilterAt(customUsernamePasswordAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(this.authProvider);
     }
 
     private Filter customUsernamePasswordAuthenticationFilter(AuthenticationManager authenticationManager) {
         UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
-        filter.setFilterProcessesUrl("/login-process");
-        filter.setUsernameParameter("j_username");
-        filter.setPasswordParameter("j_password");
+        filter.setFilterProcessesUrl(LOGIN_PROCESS_URL);
+        filter.setUsernameParameter(USERNAME_PARAM_NAME);
+        filter.setPasswordParameter(PASS_PARAM_NAME);
         filter.setAuthenticationManager(authenticationManager);
         filter.setAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler());
         filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(LOGIN_URL));
